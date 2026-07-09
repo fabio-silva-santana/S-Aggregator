@@ -98,7 +98,7 @@ body {
 .sidebar-footer { margin-top: auto; padding: 10px 6px; font-size: 11px; color: var(--muted); line-height: 1.6; }
 
 /* ---------- Main ---------- */
-.main { flex: 1; padding: 26px 30px; max-width: 1500px; }
+.main { flex: 1; padding: 26px 30px; max-width: 1500px; width: 100%; margin-inline: auto; }
 .page-title { font-size: 21px; font-weight: 700; letter-spacing: -0.3px; }
 .page-sub { color: var(--muted); font-size: 12px; margin-top: 4px; }
 .header-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; gap: 16px; }
@@ -861,6 +861,38 @@ a { color: var(--green-dark); }
 .menu-overlay { display: none; }
 
 /* ---------- Tablet (≤1024px) ---------- */
+/* ===== Monitores wide: a área útil cresce com a tela (FASE 1) =====
+   Estratégia: teto do .main sobe por faixa e o conteúdo fica centralizado;
+   grids ganham colunas/altura; blocos de texto seguem legíveis (~65–75ch). */
+.stats-3 { grid-template-columns: repeat(3, 1fr); }
+.stats-rel { grid-template-columns: repeat(3, 1fr); }
+
+@media (min-width: 1920px) {
+  .main { max-width: 1880px; padding: 32px 44px; }
+  .stats { gap: 18px; }
+  .stats-rel { grid-template-columns: repeat(6, 1fr); } /* 6 KPIs em 1 linha */
+  .inicio-grid { grid-template-columns: 1fr 300px; gap: 20px; }
+  .mapa-svg { max-height: 600px; }
+  .graficos-grid { gap: 20px; }
+  .objeto-cell { max-width: 560px; } /* ~70ch no corpo 13px */
+  .drawer { width: min(760px, 50vw); }
+  .kanban { grid-auto-columns: minmax(280px, 1fr); }
+}
+
+@media (min-width: 2560px) {
+  .main { max-width: 2360px; padding: 40px 56px; }
+  .inicio-grid { grid-template-columns: 1fr 340px; }
+  .mapa-svg { max-height: 720px; }
+  .objeto-cell { max-width: 640px; }
+  .drawer { width: min(860px, 40vw); }
+}
+
+@media (min-width: 3440px) {
+  .main { max-width: 2880px; padding: 48px 72px; }
+  .mapa-svg { max-height: 820px; }
+  .drawer { width: min(960px, 32vw); }
+}
+
 @media (max-width: 1024px) {
   .stats { grid-template-columns: repeat(2, 1fr); }
   .main { padding: 20px; }

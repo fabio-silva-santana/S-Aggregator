@@ -1271,7 +1271,7 @@ function PainelAcompanhamento({ pipeline, visao, onVisao, onAbrir, onMover, onIr
         </div>
       ) : (
         <>
-          <div className="stats" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+          <div className="stats stats-3">
             <div className="stat-card"><div className="stat-label">Em acompanhamento</div><div className="stat-value">{pipeline.length}</div><div className="stat-note text-muted">{abertos} em andamento</div></div>
             <div className="stat-card"><div className="stat-label">Finalizados</div><div className="stat-value text-green">{pipeline.filter((p) => p.fase === "finalizado").length}</div><div className="stat-note text-muted">concluídos</div></div>
             <div className="stat-card"><div className="stat-label">Próxima sessão</div><div className="stat-value text-amber" style={{ fontSize: 18 }}>{proximaSessao ? new Date(proximaSessao.dataAbertura + "T12:00:00").toLocaleDateString("pt-BR") : "—"}</div><div className="stat-note text-muted">{proximaSessao ? proximaSessao.numero : "sem datas futuras"}</div></div>
@@ -1549,7 +1549,7 @@ function RelatorioProcessos({ pipeline, onAbrirProcesso, onIrRadar }) {
           </div>
 
           {/* KPIs */}
-          <div className="stats" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+          <div className="stats stats-rel">
             <div className="stat-card"><div className="stat-label">Processos</div><div className="stat-value">{m.total}</div><div className="stat-note text-muted">{m.emAndamento} em andamento · {m.concluidos} concluído(s)</div></div>
             <div className="stat-card"><div className="stat-label">Taxa de vitória</div><div className="stat-value text-green">{m.taxa == null ? "—" : `${Math.round(m.taxa * 100)}%`}</div><div className="stat-note text-muted">{m.vitorias} de {m.decididos} disputado(s)</div></div>
             <div className="stat-card"><div className="stat-label">Impugnações</div><div className="stat-value text-amber" style={{ fontSize: 22 }}>{m.comImpug}</div><div className="stat-note text-muted">{m.impugDeferidas} deferida(s)</div></div>
