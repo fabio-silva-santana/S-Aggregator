@@ -1787,6 +1787,54 @@ function AppInterno() {
     try { setPipeline(JSON.parse(localStorage.getItem("saggregator_pipeline") || "[]")); } catch { }
   }, []);
 
+  // Sincronização com o Postgres (FASE 4b): ao logar, carrega do servidor; se o
+  // servidor estiver vazio, migra o que houver no localStorage (1ª sessão logada).
+  const [cargaServidorPronta, setCargaServidorPronta] = useState(false);
+  useEffect(() => {
+    let cancelado = false;
+    (async () => {
+      try {
+        const r = await fetch("/api/dados");
+        const j = await r.json();
+        if (cancelado) return;
+        if (j.semBanco || j.error) { setCargaServidorPronta(true); return; }
+        const localEmp = (() => { try { return JSON.parse(localStorage.getItem("saggregator_empresa") || "null"); } catch { return null; } })();
+        const localPipe = (() => { try { return JSON.parse(localStorage.getItem("saggregator_pipeline") || "[]"); } catch { return []; } })();
+        if (j.empresa && Object.keys(j.empresa).length) {
+          setEmpresa({ ...EMPRESA_VAZIA, ...j.empresa, questionario: { ...EMPRESA_VAZIA.questionario, ...(j.empresa.questionario || {}) }, interesses: { ...EMPRESA_VAZIA.interesses, ...(j.empresa.interesses || {}) } });
+        } else if (localEmp && Object.keys(localEmp).length > 2) {
+          fetch("/api/dados", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ empresa: localEmp }) }).catch(() => { });
+        }
+        if (Array.isArray(j.pipeline) && j.pipeline.length) {
+          setPipeline(j.pipeline);
+        } else if (localPipe.length) {
+          fetch("/api/dados", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pipeline: localPipe }) }).catch(() => { });
+        }
+        setCargaServidorPronta(true);
+      } catch { if (!cancelado) setCargaServidorPronta(true); }
+    })();
+    return () => { cancelado = true; };
+  }, []);
+
+  // salva no servidor com debounce quando o cadastro muda (após a carga inicial)
+  useEffect(() => {
+    if (!cargaServidorPronta) return;
+    const { cnpjInput, ...serial } = empresa;
+    const t = setTimeout(() => {
+      fetch("/api/dados", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ empresa: serial }) }).catch(() => { });
+    }, 1200);
+    return () => clearTimeout(t);
+  }, [empresa, cargaServidorPronta]);
+
+  // salva o pipeline no servidor com debounce
+  useEffect(() => {
+    if (!cargaServidorPronta) return;
+    const t = setTimeout(() => {
+      fetch("/api/dados", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pipeline }) }).catch(() => { });
+    }, 1200);
+    return () => clearTimeout(t);
+  }, [pipeline, cargaServidorPronta]);
+
   // base completa (sem filtros) para a Página Inicial — reusa o cache de 30 min do servidor
   useEffect(() => {
     fetch("/api/editais").then((r) => r.json()).then(setBaseInicio).catch(() => { });

@@ -1,0 +1,67 @@
+-- ============================================================
+-- S-Aggregator — Schema Postgres (Supabase) — FASE 4b
+-- Rode este bloco UMA vez no Supabase → SQL Editor → New query → Run.
+--
+-- Modelo: User → Organization (1:N) com role (owner/member).
+-- Isolamento: RLS ligado em TODAS as tabelas, SEM policies para os papéis
+-- anon/authenticated → o navegador (chave publishable) não lê/escreve nada
+-- direto. Todo acesso passa pelo servidor Next.js autenticado (Auth.js),
+-- que usa a service key (ignora RLS) e SEMPRE filtra por org_id.
+-- ============================================================
+
+-- Usuários (espelho do login Auth.js; id = "sub" do Google)
+create table if not exists public.users (
+  id          text primary key,
+  email       text,
+  name        text,
+  image       text,
+  created_at  timestamptz not null default now()
+);
+
+-- Organizações (a empresa do usuário). Campos de onboarding alimentam o scoring.
+create table if not exists public.organizations (
+  id               uuid primary key default gen_random_uuid(),
+  name             text not null default 'Minha empresa',
+  cnpj             text,
+  cnaes            text[]  not null default '{}',   -- CNAEs de atuação
+  regioes          text[]  not null default '{}',   -- UFs de atuação
+  faixa_valor      text,                            -- faixa de valor de interesse
+  onboarding_done  boolean not null default false,
+  created_at       timestamptz not null default now(),
+  updated_at       timestamptz not null default now()
+);
+
+-- Vínculo User↔Organization (1:N) com papel
+create table if not exists public.organization_members (
+  org_id     uuid references public.organizations(id) on delete cascade,
+  user_id    text references public.users(id) on delete cascade,
+  role       text not null default 'owner',          -- owner | member
+  created_at timestamptz not null default now(),
+  primary key (org_id, user_id)
+);
+
+-- Cadastro completo da empresa (objeto 'empresa' do app) — 1:1 com a org
+create table if not exists public.company_profile (
+  org_id     uuid primary key references public.organizations(id) on delete cascade,
+  data       jsonb not null default '{}'::jsonb,      -- empresa inteira (certidões meta, interesses, atestados...)
+  updated_at timestamptz not null default now()
+);
+
+-- Pipeline de processos (Gestão de Processos) — 1:N com a org
+create table if not exists public.processes (
+  org_id     uuid references public.organizations(id) on delete cascade,
+  id         text not null,                           -- edital.id (mesmo id do app)
+  data       jsonb not null,                          -- card inteiro do pipeline
+  updated_at timestamptz not null default now(),
+  primary key (org_id, id)
+);
+
+-- ---- RLS: liga em tudo; sem policies = deny-all p/ anon/authenticated ----
+alter table public.users                enable row level security;
+alter table public.organizations        enable row level security;
+alter table public.organization_members enable row level security;
+alter table public.company_profile      enable row level security;
+alter table public.processes            enable row level security;
+
+-- (A service key usada pelo servidor ignora RLS por definição; o navegador
+--  com a chave publishable fica bloqueado de ler/escrever qualquer linha.)
