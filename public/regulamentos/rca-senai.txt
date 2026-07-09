@@ -1,0 +1,1059 @@
+REGULAMENTO PARA 
+CONTRATAÇÃO E 
+ALIENAÇÃO – RCA
+
+REGULAMENTO PARA 
+CONTRATAÇÃO E 
+ALIENAÇÃO – RCA
+Acesse a publicação 
+pelo QR Code abaixo.
+CONFEDERAÇÃO NACIONAL DA INDÚSTRIA – CNI
+Robson Braga de Andrade
+Presidente
+Gabinete da Presidência
+Teodomiro Braga da Silva
+Chefe do Gabinete - Diretor
+Diretoria de Educação e Tecnologia - DIRET
+Rafael Esmeraldo Lucchesi Ramacciotti
+Diretor de Educação e Tecnologia
+Serviço Social da Indústria - SESI
+Vagner Freitas de Moraes
+Presidente do Conselho Nacional
+SESI – Departamento Nacional
+Robson Braga de Andrade
+Diretor
+Rafael Esmeraldo Lucchesi Ramacciotti
+Diretor-Superintendente 
+Paulo Mól Júnior
+Diretor de Operações
+Serviço Nacional de Aprendizagem Industrial - SENAI
+Robson Braga de Andrade
+Presidente do Conselho Nacional
+SENAI – Departamento Nacional
+Rafael Esmeraldo Lucchesi Ramacciotti
+Diretor-Geral
+Julio Sergio de Maya Pedrosa Moreira
+Diretor-Adjunto
+Gustavo Leal Sales Filho
+Diretor de Operações
+Instituto Euvaldo Lodi – IEL
+Robson Braga de Andrade
+Presidente do Conselho Superior
+IEL – Núcleo Central
+Paulo Afonso Ferreira
+Diretor-Geral
+Eduardo Vaz da Costa Junior
+Superintendente
+REGULAMENTO PARA 
+CONTRATAÇÃO E 
+ALIENAÇÃO – RCA
+
+© 2023. SENAI – Departamento Nacional
+Qualquer parte desta obra poderá ser reproduzida, desde que citada a fonte.
+CNI
+Diretoria Jurídica
+FICHA CATALOGRÁFICA
+S491r
+Serviço Nacional de Aprendizagem Industrial. Departamento Nacional. 
+Regulamento para contratação e alienação (RCA) pelo Serviço Nacional de 
+Aprendizagem Industrial (SENAI) / Serviço Nacional de Aprendizagem Industrial. 
+Brasília: SENAI/DN, 2023.
+42 p. : il.
+1. Contratação. 2. Alienação. 3. Regulamento. I. Título 
+CDU: 347.44
+SENAI
+Serviço Nacional de Aprendizagem Industrial
+Departamento Nacional
+Sede
+Setor Bancário Norte
+Quadra 1 – Bloco C
+Edifício Roberto Simonsen
+70040-903 – Brasília – DF
+http://www.portaldaindustria.com.br/senai/
+Serviço de Atendimento ao Cliente - SAC
+Tels.: (61) 3317-9989 / 3317-9992
+sac@cni.com.br
+SUMÁRIO
+PREÂMBULO ...................................................................................7
+TÍTULO I – DISPOSIÇÕES GERAIS ..............................................16
+TÍTULO II – DO PROCESSO DE SELEÇÃO .................................16
+TÍTULO III – DA QUALIFICAÇÃO DOS PARTICIPANTES ............22
+TÍTULO IV – DO PROCEDIMENTO ...............................................24
+TÍTULO V – DA RECONSIDERAÇÃO ...........................................28
+TÍTULO VI – DO REGISTRO DE PREÇO ......................................29
+TÍTULO VII - DOS PROCESSOS AUXILIARES ............................32
+TÍTULO VIII – DAS CONTRATAÇÕES ...........................................35
+TÍTULO IX – DISPOSIÇÕES FINAIS E TRANSITÓRIAS ..............40
+
+7
+7
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+PREÂMBULO
+Em 1998, induzidos pela Decisão Plenária 907/1997 do Tri-
+bunal de Contas da União (TCU), os serviços sociais autôno-
+mos se uniram para elaborar o Regulamento de Licitações e 
+Contratos (RLC), normativo adotado até os dias de hoje nas 
+suas contratações de obras, serviços, compras e alienações.
+O RLC foi concebido num momento bastante peculiar, em 
+que o TCU pacificou o seu entendimento ao decidir pela não 
+aplicação da Lei 8.666/93 aos serviços sociais autônomos. 
+Naquela decisão, o Tribunal também firmou o entendimento 
+de que essas entidades, em razão da origem compulsória dos 
+seus recursos, deveriam contratar com base em normativos 
+próprios, por elas editados, que contemplassem a principio-
+logia das contratações públicas. 
+Natural que aquela decisão do TCU fosse acolhida pelos 
+serviços sociais autônomos, até porque não mais seriam 
+indevidamente pressionados a adotar uma legislação que 
+fora concebida para um único e exclusivo destinatário: 
+o Poder Público. A contrapartida imposta foi vista como 
+viável e capaz de pôr fim aos problemas da época, apesar 
+de impor a adoção de princípios públicos.
+As circunstâncias acabaram por induzir a elaboração do RLC, 
+comum a todos os serviços sociais autônomos, indepen -
+dentemente de suas peculiaridades institucionais, com a 
+observância de princípios gerais da Administração Pública 
+e específicos das contratações públicas.
+8
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+O maior desafio foi incorporar ao RLC as referências das 
+contratações públicas. Apesar de ter utilizado expressões, 
+conceitos, institutos e, como determinado pelo TCU, princípios 
+próprios das contratações públicas, o RLC buscou empreender 
+maior simplicidade normativa e prestigiar a natureza e a 
+gestão privadas dos serviços sociais autônomos.
+Os idealizadores do RLC envidaram seus melhores esforços 
+para permitir que a interpretação decorrente de seus disposi-
+tivos estivesse sempre comprometida com a maior eficiência 
+institucional. Já naquela época, se tinha o entendimento 
+de que a gestão privada era mais adequada para se atingir 
+esse propósito do que a orientada por regras, princípios e 
+procedimentos típicos do Direito Público. 
+O RLC foi desafiado e colocado à prova ao longo da sua 
+vigência. O TCU, por vezes, via flexibilidade excessiva em 
+suas normas e apontava fragilidades, chegando a determinar, 
+em poucos casos isolados, alterações de texto. Os serviços 
+sociais autônomos nem sempre encontravam facilidade para 
+ajustá-lo às suas necessidades concretas, estas em constante, 
+dinâmico e natural processo de evolução. 
+Há de se reconhecer, contudo, que o RLC foi protagonista 
+nesse processo de pacificação, conferindo razoável estabi -
+lidade à relação dos serviços sociais autônomos com o TCU.
+Nesses seus 25 anos de existência, o RLC sofreu poucas 
+alterações. Dentre elas, vale destacar a inclusão do pre -
+gão, inclusive na forma eletrônica, e do registro de preço 
+com a possibilidade de sua adesão. Apesar de repercutirem 
+9
+9
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+procedimentos típicos da Administração Pública, as alterações 
+contaram com a iniciativa e o bom senso do grupo técnico 
+dos serviços sociais autônomos e refletiam boas práticas 
+adotadas e aceitas pelo mercado.
+Essas e outras alterações sempre buscaram adequar o RLC às 
+realidades institucionais dos serviços sociais autônomos, sem 
+perder de vista o compromisso permanente de prestigiar a 
+gestão privada e a maior eficiência do uso dos seus recursos. 
+O ano de 2014 foi marcante para os serviços sociais autô -
+nomos. Ao julgar o Recurso Extraordinário (RE) 789.874, 
+de relatoria do saudoso ministro Teori Zavascki, e decidir 
+que os serviços sociais autônomos não estavam sujeitos ao 
+concurso público para a contratação de seus empregados, 
+o Supremo Tribunal Federal (STF) assentou o entendimento 
+da não submissão dessas entidades aos princípios da 
+Administração Pública, previstos no artigo 37 da Consti-
+tuição Federal.
+Aquele entendimento decorreu dos fundamentos que o 
+ministro relator fez constar em seu voto: “(...) não procede a 
+alegação de que o só fato de serem os serviços sociais autôno-
+mos subvencionados por recursos públicos seria circunstância 
+determinante da submissão das entidades do Sistema “S” aos 
+princípios previstos no art. 37, caput, da Constituição (...). Tal 
+relação de causa e efeito, além de não prevista em lei e nem 
+ser decorrência de norma ou princípio constitucional, jamais 
+foi cogitada para outras entidades de direito privado que 
+usufruem de recursos públicos, como as de utilidade pública 
+10
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+declarada, as entidades beneficentes de assistência social 
+e mesmo as entidades sindicais, também financiadas por 
+contribuições compulsórias”.
+De forma unânime, os ministros do STF decidiram que a 
+Constituição Federal (CF) assegura autonomia administra -
+tiva aos serviços sociais autônomos para autogerirem seus 
+recursos, inclusive quanto à elaboração de seus orçamentos, 
+ao estabelecimento de suas prioridades, segundo orientação 
+política própria. Também decidiram que essas entidades 
+estariam sujeitas apenas ao controle finalístico do TCU, quando 
+da aplicação dos recursos compulsoriamente recebidos. 
+A decisão do STF repercutiu e gerou reações. A partir de 
+então, padrões comportamentais foram se adequando àquele 
+entendimento do STF e a edição de normativas passou a 
+considerá-lo como referência. 
+A revisão do regulamento de recrutamento e seleção de 
+empregados dos serviços sociais autônomos em 2015 bem 
+exemplifica esse movimento reformista. A alteração nor -
+mativa, além de legitimada pela recente decisão do STF, 
+mostrava-se prioritária, pois afetava direta e imediatamente o 
+modus operandi das contratações dos empregados celetistas 
+dos serviços sociais autônomos.
+O paradigma publicista imposto pelo TCU foi aos poucos 
+sendo afastado com base na orientação do STF. O viés público 
+das contratações, que já sofria resistência por parte de ges-
+tores e de colaboradores dos serviços sociais autônomos, 
+foi cedendo espaço para comportamentos mais dinâmicos, 
+11
+11
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+menos burocráticos e alinhados às boas práticas empresa -
+riais perseguidas pelo especial regime delineado para essas 
+entidades pelo artigo 240 da CF.
+As contratações públicas também se sujeitaram a transforma-
+ções, impulsionadas pela demanda por melhores resultados. 
+Também aqui as boas práticas adotadas pela iniciativa privada 
+serviram de referência e inspiração para auxiliar na busca 
+pela eficiência estatal.
+Contratos com remuneração vinculada a performance, inter-
+pretações menos formalistas e mais finalísticas, inversão 
+de fases da licitação, examinando-se primeiro a proposta 
+de preços, introdução de lances para acirrar a disputa entre 
+os concorrentes, partilha de riscos entre os contratantes, 
+maior discricionariedade conferida ao gestor para customi-
+zar as contratações, além da adoção de meios alternativos 
+para solução de conflitos, são exemplos, refletidos na Lei 
+nº 14.133/21, de como a contratação pública evoluiu e se 
+distanciou da tradicional conformação da Lei nº 8.666/93.
+A pandemia de COVID-19 impactou o cotidiano das pessoas e 
+das instituições e impôs mudanças comportamentais. Os pro-
+cessos de compras adotados pelos serviços sociais autônomos 
+foram inevitavelmente afetados, ainda que transitoriamente. 
+Todos esses movimentos e transformações impulsionaram 
+gestores e colaboradores do Serviço Nacional de Aprendi -
+zagem Industrial (SENAI) e do Serviço Social da Indústria 
+(SESI) a refletirem sobre a eficiência de suas entregas e a 
+contribuição do regramento atual do RLC. A questão central 
+12
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+lançada foi a seguinte: em que medida as normas criadas 
+há 25 anos, num contexto da época, ainda são apropriadas? 
+Um meritório trabalho colaborativo foi levado a efeito pelos 
+órgãos nacionais e regionais do SESI e do SENAI. A partir de 
+uma visão contemporânea das necessidades institucionais, 
+forjadas pelos desafios lançados pela base industrial, a ideia 
+de se ter um novo normativo para contratações e alienações 
+pelo SESI e pelo SENAI ganhou forças.
+Utilizando como referência o regulamento de recrutamento 
+e seleção de empregados dos serviços sociais autônomos, 
+com a revisão ocorrida em 2015, o código de conduta ética 
+do Sistema Indústria, concebido em 2021, além da Lei 
+14.133/2021, naquilo em que incorpora às boas práticas de 
+mercado, o Regulamento de Contratações e Alienações (RCA) 
+foi aprovado pelos Conselhos Nacionais do SESI e do SENAI, 
+nas reuniões ocorridas em 16 de maio de 2023.
+A não vinculação do SESI e do SENAI ao Poder Público, 
+governança privada, apesar da origem compulsória dos seus 
+recursos, maior flexibilidade e simplificação normativas, 
+elementos intrínsecos da autorregulação, são pilares de 
+sustentação do RCA.
+Transparência, equidade, ética e integridade são princípios 
+que passam a guiar a aplicação do RCA, sendo expressamente 
+vedadas práticas de favorecimento, tráfico de influência, 
+troca de favores e conflito de interesses que coloquem em 
+risco a justa concorrência e o objetivo do processo de seleção.
+13
+13
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+O RCA busca assegurar que o processo de seleção, com ou 
+sem competição, alcance o seu objetivo, que é a obtenção da 
+proposta mais vantajosa, esta entendida a partir das neces-
+sidades institucionais, considerando o padrão de mercado e 
+a busca permanente da eficiência, eficácia e economicidade 
+das atividades do SESI e do SENAI.
+Em síntese, a edição de um novo regulamento busca, acima 
+de tudo, otimizar o processo de contratação, de modo a 
+adequá-lo às realidades do SESI e do SENAI. O propósito 
+maior é que seja um meio transparente e eficaz, a permitir que 
+essas entidades realizem seus compromissos institucionais e 
+entreguem, com a máxima eficiência, o que delas é esperado.
+
+15
+15
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+REGULAMENTO PARA CONTRATAÇÃO 
+E ALIENAÇÃO – RCA PELO SERVIÇO 
+NACIONAL DE APRENDIZAGEM 
+INDUSTRIAL – SENAI
+
+16
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+TÍTULO I – DISPOSIÇÕES GERAIS
+Art. 1º Este regulamento estabelece normas gerais sobre 
+o processo de seleção para contratações de bens, serviços, 
+obras e alienações pelo SENAI.
+Art. 2º O processo de seleção tem por objetivo a obten -
+ção da proposta mais vantajosa para o SENAI, a partir de 
+suas necessidades, e deve observar o padrão de mercado e 
+buscar eficiência, eficácia e economicidade das atividades 
+institucionais.
+Parágrafo único - São vedadas práticas de favorecimento, 
+tráfico de influência, troca de favores e conflito de interesses 
+que coloquem em risco a justa concorrência e o objetivo do 
+processo de seleção.
+Art. 3º Todas as contratações de bens, serviços, obras e 
+alienações serão precedidas de processo de seleção e deverão 
+ser orientadas pelos princípios da transparência, equidade, 
+ética e integridade.
+TÍTULO II – DO PROCESSO DE SELEÇÃO
+Art. 4º O processo de seleção será realizado com ou sem 
+disputa, a depender das hipóteses estabelecidas neste 
+regulamento.
+17
+17
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+Art. 5º O processo de seleção com disputa será adotado 
+quando houver competição e deverá observar as formas e 
+os critérios estabelecidos neste regulamento.
+Art. 6º No processo de seleção com disputa serão admitidas 
+as formas aberta e fechada.
+§1º - Na forma aberta, os participantes do processo seletivo 
+oferecerão propostas sucessivas, crescentes ou decrescentes, 
+a depender do critério de seleção adotado.
+§2º - Na forma fechada, os participantes apresentarão pro-
+postas que permanecerão desconhecidas até a data e a hora 
+designadas para sua divulgação.
+§3º - A adoção da forma fechada será obrigatória quando 
+o critério utilizado for o técnico ou o técnico e econômico.
+Art. 7º No processo de seleção com disputa, poderá ser 
+adotado um dos seguintes critérios:
+I - econômico,
+II - técnico ou
+III - técnico e econômico.
+§1º - O critério econômico será representado pelo:
+a) menor preço,
+b) maior desconto,
+c) menor taxa,
+d) maior lance ou oferta, ou
+e) maior retorno.
+18
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+§ 2º - O critério econômico de maior retorno será utilizado, 
+exclusivamente, nos processos de seleção para contratos 
+de eficiência.
+§3º - O critério técnico será utilizado, exclusivamente, nos 
+processos de seleção para contratação de projetos ou de 
+trabalhos de natureza técnica, científica ou artística.
+§4º - O critério técnico e econômico será utilizado preferen-
+cialmente nos processos de seleção para contratação em 
+que o preço não seja fator determinante para a escolha da 
+proposta, mediante justificativa técnica.
+§5º - No critério técnico e econômico, os participantes serão 
+ordenados e classificados a partir da média ponderada da 
+valoração das suas propostas, de acordo com os pesos pre-
+viamente estabelecidos pelo SENAI, limitados em setenta 
+por cento para a valoração da proposta técnica.
+§6º - Os processos de seleção com disputa para alienações 
+de bens do SENAI deverão adotar a forma aberta e o critério 
+econômico de maior lance ou oferta. 
+Art. 8º - O processo de seleção sem disputa está condicionado 
+à inexistência de competição ou ao enquadramento das 
+necessidades concretas do SENAI às hipóteses seguintes, 
+sempre mediante justificativa:
+I - bens e serviços até o valor de R$ 92.000,00 (noventa 
+e dois mil reais);
+19
+19
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+II - obras e serviços de engenharia e/ou de arquitetura 
+até o valor de R$ 166.000,00 (cento e sessenta e seis 
+mil reais);
+III - alienação de bens até o valor de R$ 92.000,00 (noventa 
+e dois mil reais);
+IV - quando realizados, ao menos, dois processos de seleção 
+com disputa, sem que tenham surgido participantes 
+ou que eles não tenham oferecido propostas válidas, 
+inclusive quanto ao preço;
+V - no caso de emergência ou de calamidade pública que 
+possa ocasionar prejuízo ou comprometer a continui-
+dade dos serviços do SENAI ou a segurança de pessoas, 
+obras, serviços, equipamentos e outros bens, pelo tem-
+po necessário para atendimento da situação;
+VI - no caso de urgência para o atendimento de situação 
+comprovadamente imprevista ou imprevisível que 
+inviabilize a realização do processo de seleção com 
+disputa, pelo tempo necessário para atendimento 
+da situação;
+VII - gêneros alimentícios perecíveis;
+VIII - atividades de ensino, de pesquisa, de extensão, de 
+desenvolvimento institucional ou científico e tecnoló-
+gico ou de estímulo à inovação, desde que realizadas 
+por entidades que tenham por finalidade regimental 
+ou estatutária apoiar, captar e executar, sem fins lucra-
+tivos, tais atividades;
+20
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+IX - atividades de pesquisa, desenvolvimento e inovação 
+que envolvam risco tecnológico para solução de pro-
+blema técnico ou para obtenção de produto, serviço 
+ou processo inovador;
+X - produtos para pesquisa, desenvolvimento e inovação; 
+XI - bens e serviços oferecidos pelos serviços sociais autô-
+nomos ou pela administração pública direta e indireta, 
+quando o objeto da contratação for compatível com as 
+atividades finalísticas do contratado;
+XII - peças ou componentes necessários à manutenção de 
+equipamentos durante o período de garantia técnica, 
+de fornecedor original desses equipamentos, quan-
+do tal condição for indispensável para a vigência da 
+garantia;
+XIII - serviços de manutenção em que a desmontagem do 
+equipamento seja pré-condição indispensável para a 
+realização da proposta;
+XIV - cursos e serviços de instrutoria vinculados às atividades 
+finalísticas do SENAI;
+XV - cursos abertos e fechados destinados a treinamento 
+e aperfeiçoamento de empregados do SENAI;
+XVI - venda de ações que poderão ser negociadas em bolsas;
+XVII - coleta e processamento de resíduos sólidos urbanos 
+recicláveis ou reutilizáveis, em áreas com sistema de 
+coleta seletiva de lixo, realizados por associações ou 
+cooperativas, com o uso de equipamentos compatí-
+veis com as normas técnicas, ambientais e de saúde 
+pública vigentes;
+21
+21
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+XVIII - aquisição ou restauração de obras de arte e objetos 
+históricos, de autenticidade certificada, desde que 
+compatíveis ou inerentes às finalidades do SENAI;
+XIX - remanescente de obra, serviço ou fornecimento 
+em consequência de rescisão contratual, desde 
+que atendida a ordem de classificação na disputa, 
+podendo renegociar o valor da contratação, com 
+vistas à obtenção de preço melhor, mesmo que 
+acima do preço contratado;
+XX - serviços, materiais, equipamentos e gêneros, desde 
+que diretamente de produtor ou fornecedor exclusivo;
+XXI - serviços técnicos especializados de natureza pre-
+dominantemente intelectual com profissionais ou 
+empresas de notória especialização;
+XXII - profissional de qualquer setor artístico, diretamente 
+ou por meio de empresário exclusivo;
+XXIII - permuta ou dação em pagamento de bens, precedi-
+da de avaliação de mercado;
+XXIV - alienação e ou aquisição de bens entre o SESI e o 
+SENAI, precedida de avaliação de mercado;
+XXV - doação de bens;
+XXVI - credenciamento de pessoa física e jurídica;
+XXVII - aquisição, locação ou arrendamento de imóvel, 
+precedida de avaliação de mercado; 
+22
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+XXVIII - quando o participante vencedor do processo de 
+seleção com disputa não assinar o contrato no pra-
+zo estabelecido, poderão ser convidados os parti -
+cipantes remanescentes, observada a ordem de 
+classificação, para negociar o valor da contratação, 
+com vistas à obtenção da proposta mais vantajosa, 
+ainda que superior àquela vencedora, desde que 
+respeitado o valor estimado da contratação.
+TÍTULO III – DA QUALIFICAÇÃO DOS 
+PARTICIPANTES
+Art. 9º Nos processos de seleção com disputa, os partici -
+pantes deverão possuir qualificação suficiente e compatível 
+com o objeto da contratação, a ser comprovada, ao menos, 
+por meio dos seguintes documentos:
+I - contrato social, estatuto ou instrumento equivalente 
+de constituição da pessoa jurídica, em vigor, registrado 
+no órgão competente;
+II - ato de nomeação ou de eleição dos administradores, 
+registrado no órgão competente, acompanhado dos 
+seus documentos pessoais de identificação, caso 
+tenham sido nomeados ou eleitos em momento dis -
+tinto da constituição da pessoa jurídica e seus nomes 
+e funções não constem do respectivo instrumento 
+de constituição;
+23
+23
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+III - cartão do Cadastro Nacional de Pessoas Jurídicas 
+(CNPJ), inclusive quando o participante for microem -
+preendedor individual ou empresário individual;
+IV - cédula de identidade ou documento equivalente, quan-
+do o participante for pessoa física;
+V - cartão do Cadastro de Pessoas Físicas (CPF);
+VI - certificado da condição de microempreendedor indi -
+vidual, quando o participante for microempreendedor 
+individual;
+VII - requerimento de empresário individual, registrado no 
+órgão competente, quando o participante for empre-
+sário individual;
+VIII - documentos de aptidão técnica para desempenho 
+de atividade similar e compatível com o objeto da 
+contratação;
+IX - certidão negativa de falência ou recuperação judicial, 
+expedida pelo distribuidor da sede do participante, 
+ou certidão positiva de recuperação judicial, com a 
+respectiva comprovação da homologação judicial do 
+plano de recuperação; e
+X - certidão negativa de débito com a Seguridade Social e 
+com o Fundo de Garantia por Tempo de Serviço, quan-
+do o objeto da contratação envolver fornecimento de 
+mão de obra.
+§1º - Aplica-se o disposto neste artigo aos processos de sele-
+ção sem disputa, sendo facultada a exigência da totalidade 
+dos documentos nas seguintes hipóteses:
+24
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+a) nas contratações decorrentes dos incisos I, II e III do 
+artigo 8º;
+b) nas contratações decorrentes dos incisos IV a XXVIII do 
+artigo 8º, desde que o valor não ultrapasse o previsto 
+no inciso I do mesmo artigo.
+§2º - Caso o SENAI decida aferir os índices de liquidez do 
+participante, eles poderão ser iguais ou superiores a 1, mas 
+não poderão ser exigidos acima de 2.
+§3º - Nos processos de seleção para aquisição de bens em 
+que o pagamento esteja condicionado à comprovação da 
+entrega, é facultada a exigência da totalidade dos documen-
+tos previsto no caput deste artigo.
+§4º - É facultado ao participante estrangeiro apresentar 
+documentação equivalente à exigida neste artigo ou que 
+produza os mesmos efeitos, nos termos da Convenção de 
+Haia, promulgada pelo Decreto nº 8.660/2016, acompanhada 
+de tradução juramentada para o idioma português.
+§5º - No caso de participante estrangeiro de país não sig -
+natário da Convenção de Haia, promulgada pelo Decreto 
+nº 8.660/2016, a documentação equivalente deverá ser 
+autenticada no consulado brasileiro no país em que for 
+emitida, acompanhada de tradução juramentada para o 
+idioma português.
+25
+25
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+TÍTULO IV – DO PROCEDIMENTO
+Art. 10 O processo de seleção será iniciado com a solicitação 
+da contratação, que deverá conter, ao menos, a definição 
+do objeto, a estimativa do seu valor, com a sua respectiva 
+previsão orçamentária e a autorização do gestor, ao qual serão 
+oportunamente juntados os demais documentos pertinentes.
+§1º - Para atendimento das necessidades do SENAI, o objeto 
+poderá ser definido a partir da indicação excepcional e 
+justificada de características e especificações exclusivas 
+ou de marcas.
+§2º - A estimativa do valor para a contratação observará 
+os valores praticados pelo mercado, podendo ser utilizada, 
+como referência:
+a) pesquisa de preços atualizada, a ser obtida inclusive na 
+Internet;
+b) sistemas, tabelas ou bancos de preços públicos ou 
+privados;
+c) contratação de objeto similar, realizada no período de 
+até dois anos anteriores à data da pesquisa de preços, 
+com seu valor atualizado monetariamente.
+§3º No processo de seleção para registro de preço, a previsão 
+orçamentária será exigida no momento da celebração do 
+respectivo contrato.
+26
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+Art. 11 O processo de seleção com disputa será conduzido 
+por uma comissão, a partir do que dispuser o ato de chama-
+mento público, e deverá observar a política de transparência 
+do SENAI e, ao menos, as seguintes etapas:
+I - chamamento público;
+II - reunião(ões) pública(s) para conhecimento dos docu-
+mentos de qualificação dos participantes e das suas 
+propostas, observado o prazo mínimo de 8 dias a contar 
+do chamamento público;
+III - decisões acerca da qualificação dos participantes e das 
+suas propostas;
+IV - divulgação pública das decisões;
+V - reconsideração das decisões; e
+VI - resultado final do processo de seleção.
+§1º - O ato de chamamento público detalhará o procedimento, 
+que poderá ser presencial, remoto ou híbrido, e deverá conter, 
+ao menos, informações sobre o objeto, a forma e o critério 
+de seleção, bem como seus prazos e etapas.
+§2º - A Comissão poderá se valer de assessoramento técnico 
+e jurídico do SENAI para a tomada de suas decisões.
+§3º - Salvo justificativa da comissão, serão consideradas 
+inexequíveis propostas:
+a) abaixo de 75% do valor estimado para a contratação de 
+bens e/ou serviços; e
+b) abaixo de 80% do valor estimado para a contratação de 
+obras e/ou serviços de engenharia.
+27
+27
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+§4º - A justificativa prevista no parágrafo 3º fica condicionada à 
+oitiva do participante ofertante da proposta e deverá estar acom-
+panhada de documentos que comprovem a sua exequibilidade.
+§5º - Durante o processo de seleção, é facultado à Comissão 
+realizar diligências para confirmar informações contidas nos 
+documentos já apresentados pelos participantes, inclusive 
+sobre as suas respectivas validades, bem como conceder 
+prazo para que os participantes adequem seus documentos 
+de qualificação ou as suas propostas, visando sanar eventuais 
+omissões ou inadequações.
+§6º - Nos procedimentos realizados eletronicamente, como 
+condição de validade e de eficácia dos atos, o SENAI poderá 
+estabelecer que sejam todos praticados em formato digital, 
+assegurando a legitimidade e a segurança da plataforma 
+utilizada, bem como que as reuniões sejam gravadas em áudio 
+e vídeo, sendo que a participação no processo de seleção 
+configura a autorização para o tratamento dos dados e o uso 
+da imagem do participante pelo SENAI para essa finalidade.
+Art. 12 O processo de seleção com disputa para a contra -
+tação de obras e de serviços de engenharia poderá prever 
+a contratação por empreitada por preço unitário, global ou 
+integral ou, ainda, a contratação integrada ou semi-integrada.
+§1º - Para a contratação integrada, o processo de seleção 
+deverá ser instruído com a análise de riscos e respectivas 
+responsabilidades, que também deverão constar do contrato 
+a ser firmado, sem prejuízo dos documentos a que se refere 
+o artigo 10, bem como de anteprojeto da obra que deverá 
+conter no mínimo:
+28
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+a) programa de necessidades com as características e uso 
+da obra, motivação técnico-operacional, visão global dos 
+investimentos e condições relacionadas à durabilidade 
+e segurança do projeto;
+b) prazo do projeto básico, do projeto executivo e de exe-
+cução da obra;
+c) estética do projeto arquitetônico, planta de implanta-
+ção, pavimentos, corte e elevação;
+d) proposta de concepção das disciplinas complementares;
+e) levantamento topográfico e cadastral e estudo de 
+sondagem;
+f) memorial descritivo dos elementos do empreendimento, 
+dos componentes construtivos e dos materiais de cons-
+trução, de forma a estabelecer padrões mínimos para 
+a contratação, e
+g) planilha resumo de orçamento.
+§2º - O valor estimado para a contratação de obras e de 
+serviços de engenharia deverá indicar a composição do 
+Benefícios e Despesas Indiretas (BDI), calculado de acordo 
+com a complexidade e com o porte do objeto, podendo 
+ser utilizado BDI específico para compra de equipamentos, 
+sistemas e materiais.
+29
+29
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+Art. 13 Havendo alteração no escopo, antes da reunião pre-
+vista no inciso II do artigo 11, que possa impactar na apresen-
+tação das propostas, a comissão deverá reabrir prazo mínimo 
+de oito dias para, se for o caso, permitir que os participantes 
+possam reformular as propostas.
+Art. 14 O processo de seleção sem disputa deverá ser jus-
+tificado, inclusive quanto ao preço para a contratação ou 
+alienação, e autorizado pelo gestor competente, dispensada 
+a justificativa quando diante das hipóteses previstas nos 
+incisos I, II e III do artigo 8º.
+TÍTULO V – DA RECONSIDERAÇÃO
+Art. 15 Caberá pedido de reconsideração da decisão da 
+qualificação dos participantes e das suas propostas no prazo 
+de dois dias úteis, com efeito suspensivo.
+§1º - Os participantes que puderem ter a sua situação no 
+processo afetada pela reconsideração da decisão poderão 
+se manifestar sobre o pedido no prazo de dois dias úteis, 
+a contar da sua ciência.
+§2º - A reconsideração da decisão somente invalidará os atos 
+insuscetíveis de aproveitamento.
+30
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+TÍTULO VI – DO REGISTRO DE PREÇO
+Art. 16 O registro de preço, sempre precedido de processo 
+de seleção com ou sem disputa, poderá ser utilizado nas 
+seguintes hipóteses:
+I - contratação que demande entrega ou fornecimento 
+parcelado;
+II - contratação que, pelas características do bem ou do 
+serviço, demande aquisições frequentes pelo SENAI;
+III - contratação em que não seja possível estabelecer o 
+quantitativo exato para o atendimento das necessi-
+dades do SENAI;
+IV - contratação que demande necessária e justificada 
+padronização.
+§ 1º - O gerenciador poderá realizar registro de preço em 
+que não foram considerados os seus quantitativos, desde 
+que justificado.
+§ 2º - O SENAI poderá contratar obras e serviços de enge -
+nharia de baixa complexidade por registro de preço, desde 
+que atendidos, ao menos, os seguintes requisitos:
+a) projeto padronizado, sem complexidade técnica e 
+operacional;
+b) necessidade permanente ou frequente da obra ou do 
+serviço de engenharia de baixa complexidade.
+31
+31
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+Art. 17 Encerrado o processo de seleção, será assinado o 
+termo de registro de preço, no qual deverá constar o com-
+promisso do participante selecionado de entregar os bens ou 
+de prestar os serviços e, ao menos, as condições, os prazos 
+e as cláusulas penais por eventual descumprimento das 
+condições estabelecidas no termo.
+§1º - O termo de registro de preço não poderá ter alterados os 
+quantitativos estimados nem as condições de fornecimento.
+§2º - A vigência do registro de preço será de até 12 meses, 
+sendo permitida a sua prorrogação até o limite de 36 meses, 
+com possibilidade de reajuste anual dos preços registrados, 
+desde que pesquisa de mercado demonstre que os preços, 
+ainda que reajustados, se mantêm mais vantajosos para o SENAI.
+§3º - Em caso de prorrogação do registro de preço, os 
+quantitativos originalmente estimados serão renovados 
+proporcionalmente ao prazo da prorrogação.
+Art. 18 O registro de preço não importa em direito subjetivo 
+do participante vencedor do processo de exigir a contratação, 
+sendo facultada ao SENAI a realização de contratações de 
+terceiros sempre que houver preços mais vantajosos.
+Art. 19 É permitido que os demais participantes do processo 
+de seleção venham a praticar o preço registrado, desde que 
+também assinem o termo de registro de preço e reconheçam 
+que a preferência é do fornecedor vencedor. 
+32
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+Art. 20 O fornecedor deixará de ter o seu preço registrado 
+quando:
+I - descumprir as condições previstas no termo de registro 
+de preço;
+II - não aceitar reduzir o preço registrado, quando se tor-
+nar superior ao praticado pelo mercado; 
+III - quando não for mais do interesse do SENAI.
+Art. 21 O registro de preço realizado pelo SENAI poderá ser 
+objeto de adesão por qualquer órgão do SESI ou do SENAI, 
+independentemente de previsão no ato de chamamento 
+público ou no termo de registro de preço.
+Parágrafo único - A adesão de outros serviços sociais autô-
+nomos fica condicionada à previsão no ato de chamamento 
+público ou no termo de registro de preço.
+Art. 22 A adesão ao registro de preço independe de autori-
+zação do gerenciador.
+Parágrafo único - O gerenciador disponibilizará o termo de 
+registro de preço que conterá as condições, as quantidades, 
+a vigência e o preço registrado.
+Art. 23 As aquisições por aderente não poderão ultrapassar 
+100% dos quantitativos previstos no termo de registro de preço.
+Art. 24 A adesão ao termo de registro de preço e a conse-
+quente contratação deverão ser realizadas durante a sua 
+vigência.
+33
+33
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+Art. 25 O ato de chamamento público e o termo de registro 
+de preço deverão indicar que o fornecimento ao aderente não 
+poderá prejudicar as obrigações assumidas anteriormente 
+com o gerenciador nem com os demais aderentes.
+Parágrafo único - O fornecedor poderá optar por não con-
+tratar com o aderente.
+TÍTULO VII - DOS PROCESSOS 
+AUXILIARES 
+CAPÍTULO I – DA PRÉ-QUALIFICAÇÃO
+Art. 26 A pré-qualificação poderá ser adotada para selecionar:
+I - fornecedores que reúnam condições de qualificação 
+específica para participar de futura seleção com dispu-
+ta em contratação de serviços ou de obras definidos 
+pelo SENAI; ou
+II - bens que atendam às exigências técnicas ou de quali-
+dade estabelecidas pelo SENAI.
+§ 1º - As condições de pré-qualificação serão disciplinadas 
+em chamamento público e deverão observar o disposto no 
+artigo 9º e, no que couber, o procedimento a que se refere 
+o Título IV.
+34
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+§ 2º - A pré-qualificação poderá ser realizada por grupos ou 
+segmentos, segundo as especialidades dos fornecedores e 
+tipo de bens.
+Art. 27 A pré-qualificação terá validade de até um ano e 
+poderá ser prorrogada por igual período.
+Parágrafo único - Na hipótese de prorrogação do prazo 
+de pré-qualificação, os documentos apresentados pelo(s) 
+pré-qualificado(s) que porventura estejam vencidos poderão 
+ser reapresentados pelo fornecedor pré-qualificado.
+Art. 28 A relação dos pré-qualificados deverá ser divulgada, 
+observando a política de transparência do SENAI.
+Art. 29 O processo de seleção com disputa que se seguir ao 
+procedimento da pré-qualificação poderá ser restrito aos 
+fornecedores ou bens pré-qualificados, desde que conste 
+do chamamento público.
+CAPÍTULO II – DO DIÁLOGO PRÉVIO
+Art. 30 O diálogo prévio poderá ser utilizado para contrata-
+ções que envolvam inovação tecnológica ou técnica; novidade 
+ou aperfeiçoamento, resultando em novos produtos, serviços 
+ou processos ou compreendendo a agregação de novas 
+funcionalidades ou características a produto, serviço ou 
+processo já existente, na impossibilidade de as especificações 
+técnicas serem definidas com precisão suficiente pelo SENAI.
+35
+35
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+Parágrafo único - O diálogo prévio antecede o processo de 
+seleção e visa a interação com participantes selecionados, 
+com o intuito de desenvolver uma ou mais soluções capazes 
+de atender as necessidades do SENAI.
+Art. 31 As condições de participação no diálogo prévio serão 
+disciplinadas em chamamento público e deverão observar 
+o disposto no artigo 9º e, no que couber, o procedimento a 
+que se refere o Título IV.
+§1º - O SENAI deverá manter em sigilo as soluções que lhe 
+forem propostas durante o diálogo prévio, salvo quando 
+expressamente autorizada a sua divulgação.
+§2º - O diálogo prévio poderá ser mantido até que o SENAI, 
+em decisão fundamentada, identifique uma ou mais soluções 
+capazes de atender às suas necessidades, quando, então, 
+procederá ao início do processo de seleção com os partici-
+pantes selecionados.
+TÍTULO VIII – DAS CONTRATAÇÕES
+Art. 32 As contratações do SENAI deverão ser formalizadas 
+por meio de contratos ou de instrumentos equivalentes, tais 
+como proposta com aceite, carta-contrato ou autorização 
+de fornecimento, a serem adotados em razão do valor, da 
+complexidade ou da natureza da contratação.
+§ 1º - Será admitida a forma eletrônica para a celebração dos 
+contratos e dos instrumentos equivalentes.
+36
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+§ 2º - A proposta será vinculante e o seu descumprimento 
+sujeitará o proponente às penalidades previstas no chama-
+mento público ou no contrato ou instrumentos equivalentes.
+Art. 33 Os contratos e os instrumentos equivalentes deve-
+rão prever, ao menos, o seu objeto, com a especificação do 
+bem, do serviço ou da obra, o preço, o prazo de vigência, as 
+condições de execução e as penalidades.
+Parágrafo único - O inadimplemento total ou parcial das 
+obrigações contratuais assumidas dará ao SENAI o direito 
+de rescindir o contrato, sem prejuízo de outras penalidades 
+nele previstas, inclusive a suspensão do direito de contratar 
+com o SENAI pelo prazo de até cinco anos.
+Art. 34 Os contratos terão prazo de vigência determinado, 
+não podendo ultrapassar, inclusive com suas eventuais pror-
+rogações, o limite máximo de cinco anos, exceto:
+I - na contratação de bens ou de serviços que envolvam 
+alta complexidade e inovação tecnológica, respeitada 
+a vigência de até dez anos, desde que justificado e esse 
+prazo conste do chamamento público;
+II - na contratação de serviços de fornecimento contínuo, 
+respeitada a vigência de até dez anos, desde que esse 
+prazo conste do chamamento público e haja justifica-
+tiva atestando que as condições e os preços permane-
+cem vantajosos para o SENAI após os cinco anos iniciais, 
+permitida a negociação com o contratado ou a extinção 
+contratual sem ônus para qualquer das partes;
+37
+37
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+III - na contratação de fornecedores que gere receita ou 
+no contrato de eficiência que gere economia para o 
+SENAI, respeitada a vigência de até dez anos, desde 
+que justificado e que conste do chamamento público;
+IV - na contratação de operação continuada de sistemas 
+estruturantes de tecnologia da informação, respeitada 
+a vigência de até 15 anos;
+V - na contratação regida por legislação especial, quando 
+os prazos de vigência observarão a determinação legal 
+respectiva;
+VI - na contratação de fornecimento com prestação de 
+serviços associados, o prazo de vigência será definido 
+pela soma do prazo relativo ao fornecimento inicial 
+ou à entrega da obra com o prazo relativo ao serviço 
+de operação e manutenção, esse último limitado a 
+cinco anos contados da data de recebimento do que 
+for fornecido, autorizada a sua prorrogação por até 
+igual período;
+VII - na contratação de serviço público oferecido em regime 
+de monopólio, o prazo de vigência poderá ser indeter-
+minado; e
+VIII - na contratação de plano ou de seguro saúde e odon-
+tológico, bem como serviço de administração de plano 
+de previdência privada, o prazo de vigência poderá ser 
+indeterminado.
+38
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+Parágrafo único - Nas contratações por escopo, o prazo de 
+vigência será automaticamente prorrogado quando seu objeto 
+não for concluído no prazo de execução e a prorrogação não 
+implicar em ônus adicional para o SENAI, devendo a prorrogação, 
+no caso de haver ônus, ser justificada e constar de termo aditivo.
+Art. 35 A prestação de garantia, quando prevista no chama-
+mento público, limitada a 30% do valor do contrato, poderá 
+ser por uma das seguintes modalidades:
+I - caução em dinheiro;
+II - fiança bancária;
+III - seguro garantia.
+§ 1º - A escolha da modalidade de garantia poderá ser feita 
+pelo participante, exceto quando o SENAI fixar a modalidade 
+dentre as elencadas nos incisos deste artigo.
+§ 2º - A exigência de percentual de garantia acima de 15% 
+deverá ser justificada.
+§ 3º - O SENAI poderá exigir ou permitir mais de uma das 
+modalidades de garantia previstas neste artigo, inclusive 
+com percentuais específicos, desde que não ultrapassem o 
+limite de 30% definido no caput deste artigo.
+§4º - Caso adotada a hipótese do §3º, pelo menos 50% da 
+garantia deve ser apresentada antes do início da execução 
+do contrato, sendo que a parte restante poderá ser obtida 
+a partir de retenção de parcela dos pagamentos futuros, 
+devidos pelo SENAI ao contratado, desde que tal possibilidade 
+conste do chamamento público e do contrato.
+39
+39
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+§5º - Poderá ser exigida garantia adicional caso a proposta 
+seja inferior a 85% do valor estimado para a contratação, 
+limitada a 3% do valor do contrato, desde que prevista no 
+chamamento público.
+Art. 36 O contratado poderá subcontratar partes do objeto 
+contratual, desde que haja previsão no chamamento público 
+e no respectivo contrato, e mantida sua responsabilidade 
+perante o contratante, sendo vedada a subcontratação de 
+participante do processo de seleção que originou o contrato.
+Art. 37 O SENAI poderá realizar, desde que previsto no 
+chamamento público e no contrato, pagamento direto a 
+terceiros, observados os requisitos e condições previstos 
+para a contratação, mantendo-se a responsabilidade integral 
+do contratado.
+Art. 38 As alterações contratuais por acordo entre as partes, 
+desde que justificadas, constarão de termos aditivos.
+§ 1º - A formalização do termo aditivo é condição para a execu-
+ção das alterações contratuais, salvo nos casos de justificada 
+necessidade de antecipação de seus efeitos, hipótese em 
+que a formalização deverá ocorrer na vigência do contrato.
+§ 2º - Nos casos de reajuste de preços ou repactuação decor-
+rentes de acordo ou convenção coletiva de trabalho, desde 
+que previstos no contrato, bem como para correção de erros 
+materiais, poderão ser dispensados os aditamentos, substi-
+tuindo-os por simples apostila.
+40
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+Art. 39 O reajuste de preços poderá ser concedido mediante 
+solicitação do contratado, observado o interregno mínimo 
+de um ano, contado da data da proposta ou da data do 
+último reajuste.
+Parágrafo único - A data da proposta será considerada:
+a) A data da primeira reunião do processo de seleção com 
+disputa; e
+b) A data da proposta, quando o processo de seleção for 
+sem disputa.
+Art. 40 Os contratos poderão ser aditados em até 50% do 
+valor global atualizado do período contratado, mediante 
+justificativa.
+Art. 41 Não será permitido pagamento antecipado, parcial 
+ou total, relativo a parcelas contratuais vinculadas ao for -
+necimento de bens, à execução de obras ou à prestação de 
+serviços, exceto e desde que previamente justificado, quando 
+a antecipação de pagamento:
+I - propiciar relevante economia de recursos para o SENAI;
+II - representar prática de mercado.
+§ 1º - O SENAI poderá exigir prestação de garantia adicional 
+como condição para o pagamento antecipado.
+§ 2º - No caso de descumprimento contratual, o pagamento 
+antecipado deverá ser devolvido, devidamente corrigido, 
+sem prejuízo da aplicação de eventuais penalidades.
+41
+41
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+TÍTULO IX – DISPOSIÇÕES FINAIS E 
+TRANSITÓRIAS
+Art. 42 Este regulamento não se aplica às contratações de 
+bens e serviços realizadas com recursos exclusivos de tercei-
+ros, nem aos convênios, às parcerias e às cooperações que 
+envolvam recursos do SENAI.
+Art. 43 O processo de seleção poderá ser justificadamente 
+cancelado a qualquer momento.
+Art. 44 Na contagem dos prazos estabelecidos nesta norma, 
+excluir-se-á o dia do início e incluir-se-á o do vencimento, 
+e considerar-se-ão os dias consecutivos, exceto quando for 
+explicitamente disposto em contrário.
+Parágrafo único - Os prazos previstos neste regulamento 
+terão início e vencimento em dia de funcionamento do SENAI.
+Art. 45 Não poderão participar de processo de seleção nem 
+contratar com o SENAI dirigente ou empregado da entidade 
+ou as pessoas jurídicas das quais sejam sócios ou dirigentes.
+Art. 46 O Conselho Nacional do SENAI deverá avaliar, na sua 
+última reunião ordinária anual, a conveniência e oportuni -
+dade de atualização dos valores monetários previstos neste 
+regulamento.
+Art. 47 O Presidente do Conselho Nacional do SENAI, consul-
+tados os órgãos do SENAI, fica autorizado a expedir instruções 
+sobre este regulamento.
+42
+REGULAMENTO PARA CONTRATAÇÃO E ALIENAÇÃO – RCA
+Art. 48 Este regulamento não se aplica aos processos de 
+seleção já instaurados nem aos contratos assinados ante -
+riormente à sua vigência.
+Art. 49 Este regulamento entrará em vigor na data da sua 
+publicação, com a revogação, em 31 de dezembro de 2023, do 
+Regulamento de Licitações e Contratos do SENAI, aprovado 
+pelo SENAI: Ato Ad Referendum nº 03/1998, com a redação que 
+lhe deram os Atos Ad Referendum nº 02/2001, nº 03/2002 e 
+nº 01/2006 e Resoluções nº 473/2011, nº 516/2011 e nº 47/2021.
+Art. 50 Até o decurso do prazo previsto no artigo anterior, o 
+SENAI poderá realizar seus processos de seleção com funda-
+mento neste regulamento ou no Regulamento de Licitações 
+e Contratos, cuja opção deverá ser informada e constar do 
+chamamento público e do contrato ou do instrumento equi-
+valente, vedada a aplicação combinada dos dois normativos.
+Parágrafo único - O contrato ou o instrumento equivalente 
+será regido pelo normativo que o SENAI adotar para funda-
+mentar o processo de seleção.
+
+CNI
+Robson Braga de Andrade
+Presidente
+DIRETORIA JURÍDICA
+Cassio Augusto Borges
+Diretor Jurídico
+Gerência-Executiva de 
+Operações Jurídicas
+Sidney Batalha
+Gerente-Executivo de Operações 
+Jurídicas
+Gerência de Contratos 
+e Licitações
+José Virgílio de Oliveira Molinar
+Gerente de Contratos e Licitações
+Cassio Augusto Borges
+Sidney Batalha
+José Virgílio de Oliveira Molinar
+Coordenação Técnica
+Artur Henrique Tunes Sacco 
+José Virgílio Molinar 
+Paula Santos Bruno Macedo 
+Sidney Batalha 
+Thiago Pedrosa Figueiredo 
+Ana Cecilia da Cunha Peixoto Reis 
+Antônio Jorge Rodrigues da Silva
+Equipe Técnica
+DIRETORIA DE COMUNICAÇÃO 
+– DIRCOM
+Ana Maria Curado Matta
+Diretora de Comunicação
+Superintendência de Publicidade 
+e Mídias Sociais
+Mariana Caetano Flores Pinto
+Superintendente de Publicidade 
+e Mídias Sociais
+Marcela Louise Moura Santana
+Sarah de Oliveira Santana
+Produção Editorial
+DIRETORIA DE SERVIÇOS 
+CORPORATIVOS – DSC
+Fernando Augusto Trivellato
+Diretor de Serviços Corporativos
+Superintendência de 
+Administração – SUPAD
+Maurício Vasconcelos de Carvalho 
+Superintendente Administrativo
+Alberto Nemoto Yamaguti
+Normalização 
+____________________________
+Editorar Multimídia
+Projeto Gráfico e Diagramação
+
+.cni.com.br
+/cnibrasil
+@CNI_br
+@cnibr 
+/cniweb
+/company/cni–brasil
