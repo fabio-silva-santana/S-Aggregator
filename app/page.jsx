@@ -991,10 +991,13 @@ function GraficoPizza({ dados, destaque }) {
   );
 }
 
-function PaginaInicial({ base, interesses, temInteresses, onAbrir, onIrRadar, idsPipeline, onParticipar }) {
+function PaginaInicial({ base, atualizadaEm, revalidando, interesses, temInteresses, onAbrir, onIrRadar, idsPipeline, onParticipar }) {
   const [fEntidade, setFEntidade] = useState("Todas");
   const [fStatus, setFStatus] = useState("Aberto"); // carrega em abertas
   const [ufSel, setUfSel] = useState(null);
+  const [, forcar] = useState(0);
+  // reatualiza o rótulo "há X min" de tempos em tempos
+  useEffect(() => { const t = setInterval(() => forcar((n) => n + 1), 30000); return () => clearInterval(t); }, []);
 
   const editais = base?.editais || [];
   const entidades = base?.filtros?.entidades || [];
@@ -1045,9 +1048,27 @@ function PaginaInicial({ base, interesses, temInteresses, onAbrir, onIrRadar, id
           <h1 className="page-title"><Icon nome="home" size={19} style={{ marginRight: 8, verticalAlign: -2, color: "var(--green)" }} />Painel Nacional</h1>
           <div className="page-sub">Oportunidades do Sistema S e Correios em todo o Brasil</div>
         </div>
+        {base && (
+          <div className="atualizado-chip" title={atualizadaEm ? new Date(atualizadaEm).toLocaleString("pt-BR") : ""}>
+            <span className={`atualizado-ponto ${revalidando ? "on" : ""}`} />
+            {revalidando ? "Atualizando…" : atualizadaEm ? `Atualizado ${haQuantoTempo(atualizadaEm)}` : "Dados oficiais"}
+          </div>
+        )}
       </div>
 
-      {carregando && <div className="cad-card" style={{ textAlign: "center", padding: 40, color: "var(--muted)" }}>Carregando o panorama nacional…</div>}
+      {/* 1º acesso sem cache: skeleton útil em vez de tela em branco (FASE 5) */}
+      {carregando && (
+        <div className="inicio-skeleton" aria-busy="true">
+          <div className="sk-linha">
+            <span className="spinner" style={{ borderTopColor: "var(--green)" }} />
+            Montando o seu painel nacional pela primeira vez… isso leva alguns segundos.
+          </div>
+          <div className="sk-grid">
+            <div className="sk-mapa" /><div className="sk-lateral" />
+          </div>
+          <div className="sk-cards"><div /><div /><div /></div>
+        </div>
+      )}
 
       {/* Banner de destaques para o perfil */}
       {temInteresses && destaques.length > 0 && (
@@ -1706,6 +1727,25 @@ function LoginGate() {
   );
 }
 
+// Cache do snapshot do painel inicial (FASE 5) — evita tela em branco:
+// ao abrir, mostra o último carregamento na hora e revalida em segundo plano.
+const CHAVE_BASE = "saggregator_base_inicio";
+function lerBaseCache() {
+  try { const c = JSON.parse(localStorage.getItem(CHAVE_BASE) || "null"); return c && c.base ? c : null; } catch { return null; }
+}
+function salvarBaseCache(base, quando) {
+  try { localStorage.setItem(CHAVE_BASE, JSON.stringify({ base, quando })); } catch { /* quota cheia — segue sem cache */ }
+}
+function haQuantoTempo(ts) {
+  if (!ts) return null;
+  const s = Math.max(0, Math.round((Date.now() - ts) / 1000));
+  if (s < 60) return "agora mesmo";
+  const m = Math.round(s / 60);
+  if (m < 60) return `há ${m} min`;
+  const h = Math.round(m / 60);
+  return h < 24 ? `há ${h} h` : `há ${Math.round(h / 24)} d`;
+}
+
 export default function Home() {
   const { status } = useSession();
   if (status === "loading") {
@@ -1720,6 +1760,8 @@ function AppInterno() {
   const usuario = session?.user || null;
   const [view, setView] = useState("inicio");
   const [baseInicio, setBaseInicio] = useState(null);
+  const [baseAtualizadaEm, setBaseAtualizadaEm] = useState(null);
+  const [baseRevalidando, setBaseRevalidando] = useState(false);
   const [favOnly, setFavOnly] = useState(false);
   const [filtros, setFiltros] = useState(FILTRO_INICIAL);
   const [dados, setDados] = useState(null);
@@ -1835,9 +1877,21 @@ function AppInterno() {
     return () => clearTimeout(t);
   }, [pipeline, cargaServidorPronta]);
 
-  // base completa (sem filtros) para a Página Inicial — reusa o cache de 30 min do servidor
+  // base completa (sem filtros) para a Página Inicial (FASE 5): mostra o último
+  // snapshot salvo na hora e revalida em segundo plano (sem tela em branco).
   useEffect(() => {
-    fetch("/api/editais").then((r) => r.json()).then(setBaseInicio).catch(() => { });
+    const cache = lerBaseCache();
+    if (cache) { setBaseInicio(cache.base); setBaseAtualizadaEm(cache.quando); }
+    setBaseRevalidando(true);
+    fetch("/api/editais")
+      .then((r) => r.json())
+      .then((b) => {
+        if (!b || b.error) return;
+        const agora = Date.now();
+        setBaseInicio(b); setBaseAtualizadaEm(agora); salvarBaseCache(b, agora);
+      })
+      .catch(() => { })
+      .finally(() => setBaseRevalidando(false));
   }, []);
 
   // reconsulta o CNPJ na Receita a cada 30 min quando o cadastro está ativo
@@ -2332,6 +2386,8 @@ function AppInterno() {
         {view === "inicio" && (
           <PaginaInicial
             base={baseInicio}
+            atualizadaEm={baseAtualizadaEm}
+            revalidando={baseRevalidando}
             interesses={empresa.interesses}
             temInteresses={temInteresses}
             onAbrir={(e) => abrirEdital(e)}
