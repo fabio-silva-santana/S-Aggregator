@@ -292,14 +292,15 @@ tbody tr:hover { background: var(--card-hover); }
 .btn-ia:disabled { opacity: 0.55; cursor: wait; }
 .ia-box {
   border: 1px solid var(--green-line);
-  background: #f7fcf8;
+  background: var(--surface-2);
+  color: var(--text);
   border-radius: 12px; padding: 18px; margin-top: 16px;
 }
 .ia-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .ia-title { font-size: 11.5px; letter-spacing: 1.3px; color: var(--green-dark); font-weight: 800; }
 .score-ring { display: flex; align-items: center; gap: 14px; margin: 12px 0; }
 .score-num { font-size: 36px; font-weight: 800; letter-spacing: -1px; }
-.score-bar-track { flex: 1; height: 8px; background: #e4ede7; border-radius: 6px; overflow: hidden; }
+.score-bar-track { flex: 1; height: 8px; background: var(--gray-chip); border-radius: 6px; overflow: hidden; }
 .score-bar { height: 100%; border-radius: 6px; transition: width 0.6s; }
 .recomendacao {
   display: inline-block; font-weight: 700; font-size: 12px;
@@ -411,7 +412,7 @@ a { color: var(--green-dark); }
 .sumario-grid dd { margin: 0; color: var(--text); line-height: 1.55; }
 
 /* ---------- Relatório Executivo ---------- */
-.relatorio .rel-sec { margin-bottom: 20px; padding-top: 14px; border-top: 1px solid #dcebe1; }
+.relatorio .rel-sec { margin-bottom: 20px; padding-top: 14px; border-top: 1px solid var(--green-line); }
 .relatorio .rel-sec:first-of-type { border-top: none; }
 .relatorio h4 {
   font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase;
@@ -424,7 +425,8 @@ a { color: var(--green-dark); }
 .relatorio ul { list-style: none; }
 .relatorio li {
   font-size: 13px; padding: 6px 0 6px 18px; position: relative;
-  border-bottom: 1px dashed #dcebe1;
+  color: var(--text);
+  border-bottom: 1px dashed var(--border);
 }
 .relatorio li::before { content: "▸"; position: absolute; left: 0; color: var(--green); }
 .relatorio .lista-check li::before { content: "☐"; color: var(--green-dark); }
@@ -437,7 +439,7 @@ a { color: var(--green-dark); }
 .grau { font-weight: 700; }
 .grau-baixo { background: var(--green-light); color: var(--green-dark); }
 .grau-medio { background: var(--amber-light); color: var(--amber); }
-.grau-medioalto { background: #ffe9d6; color: #c2410c; }
+.grau-medioalto { background: var(--amber-light); color: var(--amber); }
 .grau-alto { background: var(--red-light); color: var(--red); }
 .decisao-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
 .decisao-item {
