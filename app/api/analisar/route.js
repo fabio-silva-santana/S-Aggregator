@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { coletarEditais, montarTextoEdital, resolverDocumentos } from "@/lib/coletores";
 import { blocoRegulamento, regulamentoDaEntidade } from "@/lib/regulamentos";
@@ -62,6 +61,27 @@ const SCHEMA = {
   ],
   additionalProperties: false,
 };
+
+// O relatório é gerado em 2 chamadas PARALELAS (FASE 2 de performance):
+// extração (dados objetivos) e análise/parecer. Cada uma produz metade dos
+// tokens de saída — o gargalo medido — cortando o tempo total quase pela metade.
+// A 2ª chamada dispara após o 1º evento do stream da 1ª p/ reutilizar o cache.
+const CAMPOS_EXTRACAO = [
+  "resumo_executivo", "dados_gerais", "objeto_descricao", "objeto_escopo", "objeto_obrigacoes",
+  "perfil_empresa_ideal", "valores", "cronograma", "condicoes_participacao", "documentacao_exigida",
+  "execucao_contrato", "garantias", "penalidades", "como_participar",
+];
+const CAMPOS_ANALISE = SCHEMA.required.filter((c) => !CAMPOS_EXTRACAO.includes(c));
+function subSchema(campos) {
+  return {
+    type: "object",
+    properties: Object.fromEntries(campos.map((c) => [c, SCHEMA.properties[c]])),
+    required: campos,
+    additionalProperties: false,
+  };
+}
+const SCHEMA_EXTRACAO = subSchema(CAMPOS_EXTRACAO);
+const SCHEMA_ANALISE = subSchema(CAMPOS_ANALISE);
 
 const SYSTEM = `Você é o analista de licitações do S-Aggregator, especialista nos regulamentos de licitações e contratos das entidades do Sistema S (SESI, SENAI, SESC, SENAC, SENAR, SEBRAE).
 Produza um RELATÓRIO EXECUTIVO DE ANÁLISE completo e objetivo do processo fornecido, em português do Brasil, no padrão de consultoria de licitações.
@@ -143,71 +163,169 @@ export async function POST(request) {
   const { editalId, perfilEmpresa, empresa } = await request.json();
   // dossiê estruturado (novo módulo) tem prioridade; texto livre é fallback
   const dossie = montarDossieEmpresa(empresa) || (perfilEmpresa?.trim() ? `PERFIL DA EMPRESA DO USUÁRIO:\n${perfilEmpresa.trim()}` : null);
-  const { editais } = await coletarEditais();
-  const edital = editais.find((e) => e.id === editalId);
-  if (!edital) {
-    return NextResponse.json({ error: "Edital não encontrado (a base é atualizada a cada 30 min — recarregue a página)" }, { status: 404 });
-  }
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return NextResponse.json({ analise: analiseDemo(edital) });
-  }
+  // Resposta em SSE: o cliente recebe etapas reais + progresso + resultado.
+  const encoder = new TextEncoder();
+  const stream = new ReadableStream({
+    async start(controller) {
+      const send = (event, data) => {
+        try {
+          controller.enqueue(encoder.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`));
+        } catch { /* cliente desconectou */ }
+      };
+      const tInicio = Date.now();
+      try {
+        // ---- etapa 1: localizar o processo ----
+        send("etapa", { id: "lendo", label: "Lendo o edital" });
+        const { editais } = await coletarEditais();
+        const edital = editais.find((e) => e.id === editalId);
+        if (!edital) {
+          send("erro", { mensagem: "Edital não encontrado (a base é atualizada a cada 30 min — recarregue a página)" });
+          return;
+        }
+        if (!process.env.ANTHROPIC_API_KEY) {
+          send("resultado", { analise: analiseDemo(edital) });
+          return;
+        }
 
-  const client = new Anthropic();
+        // ---- etapa 2: regulamento + anexos (com pré-checagem de URL) ----
+        send("etapa", { id: "anexos", label: "Carregando regulamento e anexos do processo" });
+        const [regBlock, documentos] = await Promise.all([
+          blocoRegulamento(edital.entidade),
+          resolverDocumentos(edital),
+        ]);
+        const docsPdf = documentos
+          .filter((d) => /\.pdf(\?|$)/i.test(d.url) || d.url.includes("pncp.gov.br"))
+          .slice(0, 2);
+        const nomeReg = regulamentoDaEntidade(edital.entidade)?.nomeOficial;
 
-  // anexos: regulamento oficial da entidade (com cache) + até 2 PDFs do edital
-  const [regBlock, documentos] = await Promise.all([
-    blocoRegulamento(edital.entidade),
-    resolverDocumentos(edital),
-  ]);
-  const docsPdf = documentos.filter((d) => /\.pdf(\?|$)/i.test(d.url) || d.url.includes("pncp.gov.br")).slice(0, 2);
-  const nomeReg = regulamentoDaEntidade(edital.entidade)?.nomeOficial;
+        const userTexto =
+          `${dossie || "PERFIL DA EMPRESA DO USUÁRIO: (não informado)"}\n\n` +
+          `PROCESSO PARA ANÁLISE (dados estruturados do portal oficial):\n${montarTextoEdital(edital)}` +
+          (nomeReg ? `\n\nRegulamento aplicável anexado: ${nomeReg}` : "");
 
-  const userTexto =
-    `${dossie || "PERFIL DA EMPRESA DO USUÁRIO: (não informado)"}\n\n` +
-    `PROCESSO PARA ANÁLISE (dados estruturados do portal oficial):\n${montarTextoEdital(edital)}` +
-    (nomeReg ? `\n\nRegulamento aplicável anexado: ${nomeReg}` : "");
+        const client = new Anthropic();
 
-  const montarConteudo = (comDocs) => [
-    ...(regBlock ? [regBlock] : []),
-    ...(comDocs
-      ? docsPdf.map((d) => ({
-          type: "document",
-          source: { type: "url", url: d.url },
-          title: d.descricao?.slice(0, 100) || "Documento do edital",
-        }))
-      : []),
-    { type: "text", text: userTexto },
-  ];
+        const conteudo = (instrucao, comDocs) => [
+          ...(regBlock ? [regBlock] : []), // cache_control: prefixo system+regulamento é reutilizado entre as 2 chamadas
+          ...(comDocs
+            ? docsPdf.map((d) => ({
+                type: "document",
+                source: { type: "url", url: d.url },
+                title: d.descricao?.slice(0, 100) || "Documento do edital",
+              }))
+            : []),
+          { type: "text", text: `${userTexto}\n\n${instrucao}` },
+        ];
 
-  async function chamar(comDocs) {
-    const response = await client.messages.create({
-      model: "claude-haiku-4-5",
-      max_tokens: 16000,
-      system: SYSTEM,
-      output_config: { format: { type: "json_schema", schema: SCHEMA } },
-      messages: [{ role: "user", content: montarConteudo(comDocs) }],
-    });
-    const textBlock = response.content.find((b) => b.type === "text");
-    return sanearTexto(JSON.parse(textBlock.text));
-  }
+        // Pré-voo (grátis): mede o prompt COM anexos; PDFs gigantes estouram o
+        // contexto de 200k do modelo — antes isso custava uma geração inteira
+        // desperdiçada (400 → retry). Se não couber, seguimos sem os anexos.
+        let usarDocs = docsPdf.length > 0;
+        let promptTokens = null;
+        if (usarDocs) {
+          try {
+            const ct = await client.messages.countTokens({
+              model: "claude-haiku-4-5",
+              system: SYSTEM,
+              messages: [{ role: "user", content: conteudo("", true) }],
+            });
+            promptTokens = ct.input_tokens;
+            if (ct.input_tokens > 185000) usarDocs = false; // reserva p/ instrução + saída
+          } catch {
+            usarDocs = false; // anexo inacessível na prática — segue sem
+          }
+        }
+        let caracteres = 0;
+        let ultimoProgresso = 0;
+        const onDelta = (texto) => {
+          caracteres += texto.length;
+          const agora = Date.now();
+          if (agora - ultimoProgresso > 600) {
+            ultimoProgresso = agora;
+            send("progresso", { caracteres, tokensAprox: Math.round(caracteres / 3.5) });
+          }
+        };
 
-  try {
-    let analise;
-    try {
-      analise = await chamar(true);
-    } catch (err) {
-      // PDFs do portal podem estar fora do ar/pesados — refaz sem os anexos do edital
-      if (docsPdf.length && err?.status === 400) analise = await chamar(false);
-      else throw err;
-    }
-    return NextResponse.json({ analise: { ...analise, demo: false } });
-  } catch (err) {
-    console.error("Erro na análise IA:", err);
-    const status = err?.status >= 400 && err?.status < 600 ? err.status : 500;
-    return NextResponse.json(
-      { error: `Falha na análise com IA: ${err?.message || "erro desconhecido"}` },
-      { status }
-    );
-  }
+        const chamarStream = (schema, instrucao) => {
+          const s = client.messages.stream({
+            model: "claude-haiku-4-5",
+            max_tokens: 10000,
+            system: SYSTEM,
+            output_config: { format: { type: "json_schema", schema } },
+            messages: [{ role: "user", content: conteudo(instrucao, usarDocs) }],
+          });
+          s.on("text", onDelta);
+          return s;
+        };
+
+        const finalizar = async (s) => {
+          const msg = await s.finalMessage();
+          const u = msg.usage || {};
+          const texto = msg.content.find((b) => b.type === "text")?.text || "{}";
+          return {
+            dados: JSON.parse(texto),
+            usage: {
+              inputTokens: u.input_tokens,
+              outputTokens: u.output_tokens,
+              cacheWriteTokens: u.cache_creation_input_tokens,
+              cacheReadTokens: u.cache_read_input_tokens,
+            },
+          };
+        };
+
+        // ---- etapa 3: 2 chamadas paralelas (extração ‖ análise) ----
+        send("etapa", { id: "extraindo", label: "Extraindo dados, prazos e exigências" });
+        const streamA = chamarStream(
+          SCHEMA_EXTRACAO,
+          "NESTA CHAMADA, produza SOMENTE os campos de EXTRAÇÃO do relatório (dados objetivos do processo: resumo, valores, cronograma, condições, documentação, execução, garantias, penalidades, como participar). Cada item de lista deve ser UMA linha objetiva — sem parágrafos."
+        );
+        // aguarda o 1º evento do stream A (cache do regulamento passa a ser legível) e dispara B
+        await Promise.race([
+          new Promise((resolve) => streamA.on("streamEvent", resolve)),
+          new Promise((resolve) => setTimeout(resolve, 4000)),
+        ]);
+        send("etapa", { id: "analisando", label: "Analisando compatibilidade e conformidade com o regulamento" });
+        const streamB = chamarStream(
+          SCHEMA_ANALISE,
+          "NESTA CHAMADA, produza SOMENTE os campos de ANÁLISE E PARECER do relatório (matriz de riscos, conformidade com o regulamento, oportunidades, pontos de atenção, checklist, graus, pareceres, recomendação e score de aderência). Itens de lista em UMA linha objetiva; pareceres em no máximo 3 frases cada."
+        );
+
+        // seções de extração ficam prontas antes — o cliente pode exibi-las
+        const pParcial = finalizar(streamA).then((r) => {
+          send("parcial", { campos: sanearTexto(r.dados) });
+          return r;
+        });
+        const [resA, resB] = await Promise.all([pParcial, finalizar(streamB)]);
+        send("etapa", { id: "redigindo", label: "Consolidando o relatório executivo" });
+
+        const analise = sanearTexto({ ...resA.dados, ...resB.dados });
+        const meta = {
+          duracaoMs: Date.now() - tInicio,
+          extracao: resA.usage,
+          parecer: resB.usage,
+          outputTokens: (resA.usage.outputTokens || 0) + (resB.usage.outputTokens || 0),
+          cacheReadTokens: (resA.usage.cacheReadTokens || 0) + (resB.usage.cacheReadTokens || 0),
+          anexosLidos: usarDocs ? docsPdf.length : 0,
+          anexosDescartados: usarDocs ? 0 : docsPdf.length,
+          promptTokens,
+        };
+        console.log("[analisar] métricas:", JSON.stringify(meta));
+        send("resultado", { analise: { ...analise, demo: false }, meta });
+      } catch (err) {
+        console.error("Erro na análise IA:", err);
+        send("erro", { mensagem: `Falha na análise com IA: ${err?.message || "erro desconhecido"}` });
+      } finally {
+        try { controller.close(); } catch { /* já fechado */ }
+      }
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/event-stream; charset=utf-8",
+      "Cache-Control": "no-cache, no-transform",
+      Connection: "keep-alive",
+    },
+  });
 }

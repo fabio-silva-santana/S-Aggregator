@@ -336,6 +336,55 @@ function SecLista({ n, titulo, itens, marcador }) {
   );
 }
 
+// Etapas reais da geração do relatório (emitidas pelo backend via SSE, FASE 3).
+// A ordem espelha o pipeline do /api/analisar: localizar → anexos → extração ‖ parecer → consolidação.
+const ETAPAS_ANALISE = [
+  { id: "lendo", label: "Lendo o edital" },
+  { id: "anexos", label: "Cruzando com o regulamento e o seu perfil" },
+  { id: "extraindo", label: "Extraindo dados, prazos e exigências" },
+  { id: "analisando", label: "Analisando compatibilidade e probabilidade" },
+  { id: "redigindo", label: "Redigindo o relatório executivo" },
+];
+
+// Estado de espera com etapas REAIS + lupa varrendo o documento (SVG inline,
+// respeita prefers-reduced-motion). Sem barra de progresso falsa.
+function LoadingAnalise({ etapa, tokens }) {
+  const pos = ETAPAS_ANALISE.findIndex((e) => e.id === etapa?.id);
+  const idx = pos < 0 ? 0 : pos;
+  return (
+    <div className="analise-loading" role="status" aria-live="polite">
+      <div className="lupa-wrap" aria-hidden="true">
+        <svg viewBox="0 0 150 120" className="lupa-svg">
+          <rect x="26" y="14" width="74" height="94" rx="7" className="lupa-doc" />
+          <line x1="38" y1="34" x2="88" y2="34" className="lupa-linha" />
+          <line x1="38" y1="46" x2="88" y2="46" className="lupa-linha" />
+          <line x1="38" y1="58" x2="76" y2="58" className="lupa-linha" />
+          <line x1="38" y1="70" x2="88" y2="70" className="lupa-linha" />
+          <line x1="38" y1="82" x2="70" y2="82" className="lupa-linha" />
+          <g className="lupa-glass">
+            <circle cx="0" cy="0" r="19" className="lupa-lente" />
+            <circle cx="0" cy="0" r="19" className="lupa-aro" />
+            <line x1="13.5" y1="13.5" x2="30" y2="30" className="lupa-cabo" />
+          </g>
+        </svg>
+      </div>
+      <div className="analise-etapas-col">
+        <ul className="analise-etapas">
+          {ETAPAS_ANALISE.map((e, i) => (
+            <li key={e.id} className={i < idx ? "feita" : i === idx ? "ativa" : "futura"}>
+              <span className="etapa-marca">
+                {i < idx ? <Icon nome="check" size={11} /> : i === idx ? <span className="etapa-spin" /> : <span className="etapa-dot" />}
+              </span>
+              {e.label}
+            </li>
+          ))}
+        </ul>
+        <div className="analise-tokens">{tokens > 0 ? `${tokens.toLocaleString("pt-BR")} tokens redigidos…` : "Preparando a leitura…"}</div>
+      </div>
+    </div>
+  );
+}
+
 function RelatorioExecutivo({ analise: a, numero }) {
   const rec = a.recomendacao;
   const badgeRec = (
@@ -1611,6 +1660,31 @@ function RelatorioProcessos({ pipeline, onAbrirProcesso, onIrRadar }) {
   );
 }
 
+/* ---------- Cache local de análises (FASE 2) ----------
+   Reabrir um edital já analisado é instantâneo e não gasta tokens.
+   Chave = edital + hash do dossiê (mudou o cadastro → nova análise). */
+function hashCurto(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+  return (h >>> 0).toString(36);
+}
+const CHAVE_ANALISES = "saggregator_analises";
+function lerAnaliseCache(chave) {
+  try {
+    const m = JSON.parse(localStorage.getItem(CHAVE_ANALISES) || "{}");
+    return m[chave]?.analise || null;
+  } catch { return null; }
+}
+function salvarAnaliseCache(chave, analise) {
+  try {
+    const m = JSON.parse(localStorage.getItem(CHAVE_ANALISES) || "{}");
+    m[chave] = { analise, quando: Date.now() };
+    // guarda as 8 mais recentes (respeita a quota do localStorage)
+    for (const k of Object.keys(m).sort((a, b) => m[b].quando - m[a].quando).slice(8)) delete m[k];
+    localStorage.setItem(CHAVE_ANALISES, JSON.stringify(m));
+  } catch { /* quota cheia — segue sem cache */ }
+}
+
 export default function Home() {
   const [view, setView] = useState("inicio");
   const [baseInicio, setBaseInicio] = useState(null);
@@ -1621,6 +1695,9 @@ export default function Home() {
   const [selecionado, setSelecionado] = useState(null);
   const [analise, setAnalise] = useState(null);
   const [analisando, setAnalisando] = useState(false);
+  const [etapaIA, setEtapaIA] = useState(null); // {id, label} — etapa real emitida pelo backend (SSE)
+  const [progressoIA, setProgressoIA] = useState(0); // tokens aproximados já gerados
+  const [analiseDoCache, setAnaliseDoCache] = useState(false);
   const [erroIA, setErroIA] = useState(null);
   const [perfil, setPerfil] = useState("");
   const [empresa, setEmpresa] = useState(EMPRESA_VAZIA);
@@ -1781,28 +1858,73 @@ export default function Home() {
   function abrirEdital(e) {
     setSelecionado(e);
     setAnalise(null);
+    setAnaliseDoCache(false);
     setErroIA(null);
     setChatAberto(false);
   }
 
-  async function analisar() {
+  async function analisar(force = false) {
     if (!selecionado) return;
+    // cache local: mesmo edital + mesmo cadastro → resultado instantâneo, custo zero
+    const chaveCache = `${selecionado.id}|${hashCurto(JSON.stringify(dossieEmpresa() || "") + (perfil || ""))}`;
+    if (!force) {
+      const cacheada = lerAnaliseCache(chaveCache);
+      if (cacheada) {
+        setAnalise(cacheada);
+        setAnaliseDoCache(true);
+        setErroIA(null);
+        return;
+      }
+    }
     setAnalisando(true);
     setErroIA(null);
     setAnalise(null);
+    setAnaliseDoCache(false);
+    setEtapaIA({ id: "conectando", label: "Preparando a análise" });
+    setProgressoIA(0);
     try {
       const r = await fetch("/api/analisar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ editalId: selecionado.id, empresa: dossieEmpresa(), perfilEmpresa: perfil }),
       });
-      const json = await r.json();
-      if (!r.ok) throw new Error(json.error || `Erro ${r.status}`);
-      setAnalise(json.analise);
+      if (!r.ok || !r.body) {
+        const j = await r.json().catch(() => ({}));
+        throw new Error(j.error || `Erro ${r.status}`);
+      }
+      // consome o SSE: etapas reais do backend + progresso + resultado
+      const reader = r.body.getReader();
+      const dec = new TextDecoder();
+      let buf = "";
+      let recebido = false;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buf += dec.decode(value, { stream: true });
+        const blocos = buf.split("\n\n");
+        buf = blocos.pop();
+        for (const bloco of blocos) {
+          const ev = bloco.match(/^event: (.+)$/m)?.[1];
+          const dataRaw = bloco.match(/^data: (.+)$/m)?.[1];
+          if (!ev || !dataRaw) continue;
+          const dados = JSON.parse(dataRaw);
+          if (ev === "etapa") setEtapaIA(dados);
+          else if (ev === "progresso") setProgressoIA(dados.tokensAprox || 0);
+          else if (ev === "resultado") {
+            recebido = true;
+            setAnalise(dados.analise);
+            if (dados.analise && !dados.analise.demo) salvarAnaliseCache(chaveCache, dados.analise);
+          } else if (ev === "erro") {
+            throw new Error(dados.mensagem || "Falha na análise");
+          }
+        }
+      }
+      if (!recebido) throw new Error("A geração foi interrompida — tente novamente.");
     } catch (err) {
       setErroIA(err.message);
     } finally {
       setAnalisando(false);
+      setEtapaIA(null);
     }
   }
 
@@ -2558,14 +2680,19 @@ export default function Home() {
 
             {/* Ações de IA */}
             <div className="acoes-ia no-print">
-              <button className="btn-ia" onClick={analisar} disabled={analisando}>
+              <button className="btn-ia" onClick={() => analisar(false)} disabled={analisando}>
                 {analisando
-                  ? <><span className="spinner" /> Gerando relatório (30–90s)...</>
+                  ? <><span className="spinner" /> Gerando relatório…</>
                   : <><Icon nome="bolt" size={14} /> Gerar Relatório Executivo</>}
               </button>
               {analise && !analise.demo && (
                 <button className="btn-secundario" onClick={imprimirRelatorio}>
                   <Icon nome="pdf" size={14} /> Baixar PDF
+                </button>
+              )}
+              {analise && !analise.demo && !analisando && analiseDoCache && (
+                <button className="btn-secundario" onClick={() => analisar(true)} title="A análise exibida veio do cache local — gerar novamente com IA">
+                  ↻ Reanalisar
                 </button>
               )}
               <button className={`btn-secundario ${chatAberto ? "ativo" : ""}`} onClick={() => setChatAberto(!chatAberto)}>
@@ -2581,6 +2708,7 @@ export default function Home() {
                 </button>
               )}
             </div>
+            {analisando && <LoadingAnalise etapa={etapaIA} tokens={progressoIA} />}
             {erroIA && <div className="ia-erro">✕ {erroIA}</div>}
 
             {chatAberto && <ChatEdital edital={selecionado} perfil={perfil} empresa={dossieEmpresa()} />}

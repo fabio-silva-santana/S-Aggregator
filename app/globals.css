@@ -316,6 +316,42 @@ tbody tr:hover { background: var(--card-hover); }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ---------- Estado de espera da análise (FASE 3) ---------- */
+.analise-loading {
+  display: flex; align-items: center; gap: 22px;
+  margin-top: 14px; padding: 20px 22px;
+  background: var(--surface-2); border: 1px solid var(--green-line); border-radius: 14px;
+}
+.lupa-wrap { flex-shrink: 0; }
+.lupa-svg { width: 116px; height: auto; display: block; }
+.lupa-doc { fill: var(--card); stroke: var(--border); stroke-width: 1.5; }
+.lupa-linha { stroke: var(--green-line); stroke-width: 3.4; stroke-linecap: round; }
+.lupa-glass { animation: lupa-varre 3.4s ease-in-out infinite; }
+.lupa-lente { fill: var(--green); opacity: 0.1; }
+.lupa-aro { fill: none; stroke: var(--green); stroke-width: 3.4; }
+.lupa-cabo { stroke: var(--green); stroke-width: 4.6; stroke-linecap: round; }
+@keyframes lupa-varre {
+  0%   { transform: translate(40px, 34px); }
+  25%  { transform: translate(78px, 40px); }
+  50%  { transform: translate(72px, 74px); }
+  75%  { transform: translate(42px, 66px); }
+  100% { transform: translate(40px, 34px); }
+}
+.analise-etapas-col { flex: 1; min-width: 0; }
+.analise-etapas { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.analise-etapas li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--muted); transition: color 0.35s ease; }
+.analise-etapas li.ativa { color: var(--text); font-weight: 600; }
+.analise-etapas li.feita { color: var(--green-dark); }
+.etapa-marca { width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.analise-etapas li.feita .etapa-marca { color: var(--green); }
+.etapa-dot { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--muted-2); opacity: 0.5; }
+.etapa-spin { width: 13px; height: 13px; border: 2px solid var(--green-line); border-top-color: var(--green); border-radius: 50%; animation: spin 0.7s linear infinite; }
+.analise-tokens { margin-top: 12px; font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) {
+  .lupa-glass { animation: none; transform: translate(58px, 52px); }
+  .etapa-spin { animation: none; border-top-color: var(--green); }
+}
+
 /* ---------- Perfil ---------- */
 .perfil-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: var(--shadow); }
 .perfil-box textarea { width: 100%; min-height: 140px; resize: vertical; line-height: 1.6; }
