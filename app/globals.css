@@ -352,6 +352,44 @@ tbody tr:hover { background: var(--card-hover); }
   .etapa-spin { animation: none; border-top-color: var(--green); }
 }
 
+/* ---------- Login (FASE 4) ---------- */
+.login-tela {
+  min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 22px; padding: 24px; background: var(--bg);
+}
+.login-splash { display: flex; align-items: center; gap: 14px; }
+.login-card {
+  width: 100%; max-width: 400px; background: var(--card); border: 1px solid var(--border);
+  border-radius: 18px; padding: 34px 30px; box-shadow: var(--shadow); text-align: center;
+}
+.login-logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.login-nome { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+.login-titulo { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.login-sub { font-size: 13.5px; color: var(--muted); line-height: 1.55; margin-bottom: 24px; }
+.login-google {
+  width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px 16px; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.login-google:hover { background: var(--surface-2); border-color: var(--green-line); }
+.login-google:disabled { opacity: 0.6; cursor: default; }
+.login-rodape { font-size: 11px; color: var(--muted); line-height: 1.6; margin-top: 20px; }
+.login-marca { font-size: 12px; color: var(--muted); }
+
+/* Bloco do usuário logado na sidebar */
+.usuario-box {
+  display: flex; align-items: center; gap: 10px; margin: 10px 6px 0;
+  padding: 9px 10px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px;
+}
+.usuario-foto { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; object-fit: cover; }
+.usuario-inicial { display: inline-flex; align-items: center; justify-content: center; background: var(--green); color: #fff; font-size: 13px; font-weight: 700; }
+.usuario-info { flex: 1; min-width: 0; }
+.usuario-nome { font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.usuario-email { font-size: 10.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.usuario-sair { background: none; border: none; color: var(--muted); cursor: pointer; padding: 4px; border-radius: 6px; display: inline-flex; flex-shrink: 0; }
+.usuario-sair:hover { background: var(--red-light); color: var(--red); }
+
 /* ---------- Perfil ---------- */
 .perfil-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: var(--shadow); }
 .perfil-box textarea { width: 100%; min-height: 140px; resize: vertical; line-height: 1.6; }

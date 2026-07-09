@@ -1,4 +1,5 @@
 import "./globals.css";
+import Providers from "./providers";
 
 export const metadata = {
   title: "S-Aggregator — Radar de Licitações do Sistema S",
@@ -20,7 +21,7 @@ export default function RootLayout({ children }) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body>{children}</body>
+      <body><Providers>{children}</Providers></body>
     </html>
   );
 }
