@@ -399,6 +399,10 @@ function RelatorioExecutivo({ analise: a, numero }) {
         <span className="ia-title"><Icon nome="bolt" size={13} style={{ marginRight: 5, verticalAlign: -2 }} />RELATÓRIO EXECUTIVO DE ANÁLISE — {numero}</span>
         {a.demo && <span className="chip chip-erro">MODO DEMO</span>}
       </div>
+      <div className="rel-meta">
+        <span><b>Processo:</b> {numero}</span>
+        <span><b>Gerado em:</b> {a.geradoEm ? new Date(a.geradoEm).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }) : new Date().toLocaleDateString("pt-BR")}</span>
+      </div>
 
       <div className="score-ring">
         <div className="score-num" style={{ color: a.score_aderencia >= 70 ? "var(--green-dark)" : a.score_aderencia >= 40 ? "var(--amber)" : "var(--red)" }}>
@@ -1832,6 +1836,7 @@ function AppInterno() {
   // Sincronização com o Postgres (FASE 4b): ao logar, carrega do servidor; se o
   // servidor estiver vazio, migra o que houver no localStorage (1ª sessão logada).
   const [cargaServidorPronta, setCargaServidorPronta] = useState(false);
+  const [precisaOnboarding, setPrecisaOnboarding] = useState(false);
   useEffect(() => {
     let cancelado = false;
     (async () => {
@@ -1840,6 +1845,12 @@ function AppInterno() {
         const j = await r.json();
         if (cancelado) return;
         if (j.semBanco || j.error) { setCargaServidorPronta(true); return; }
+        // primeiro acesso (ou org sem onboarding e sem perfil) → leva ao Cadastro
+        const jaTemPerfil = j.empresa && (j.empresa.dados || j.empresa.cnpj || (j.empresa.certidoes || []).length);
+        if ((j.novoUsuario || !j.organizacao?.onboarding_done) && !jaTemPerfil) {
+          setPrecisaOnboarding(true);
+          setView("perfil");
+        }
         const localEmp = (() => { try { return JSON.parse(localStorage.getItem("saggregator_empresa") || "null"); } catch { return null; } })();
         const localPipe = (() => { try { return JSON.parse(localStorage.getItem("saggregator_pipeline") || "[]"); } catch { return []; } })();
         if (j.empresa && Object.keys(j.empresa).length) {
@@ -2046,8 +2057,10 @@ function AppInterno() {
           else if (ev === "progresso") setProgressoIA(dados.tokensAprox || 0);
           else if (ev === "resultado") {
             recebido = true;
-            setAnalise(dados.analise);
-            if (dados.analise && !dados.analise.demo) salvarAnaliseCache(chaveCache, dados.analise);
+            // carimba a data/hora de geração no documento
+            const comData = { ...dados.analise, geradoEm: dados.analise.geradoEm || Date.now() };
+            setAnalise(comData);
+            if (comData && !comData.demo) salvarAnaliseCache(chaveCache, comData);
           } else if (ev === "erro") {
             throw new Error(dados.mensagem || "Falha na análise");
           }
@@ -2063,7 +2076,15 @@ function AppInterno() {
   }
 
   function imprimirRelatorio() {
+    // nome do arquivo com número do processo + data (antes: todos com o mesmo nome)
+    const proc = selecionado?.numero ? String(selecionado.numero).replace(/[\/\\:*?"<>|\s]+/g, "-") : "processo";
+    const data = new Date().toISOString().slice(0, 10);
+    const tituloOriginal = document.title;
+    document.title = `Relatorio-Executivo_${proc}_${data}`;
+    const restaurar = () => { document.title = tituloOriginal; window.removeEventListener("afterprint", restaurar); };
+    window.addEventListener("afterprint", restaurar);
     window.print();
+    setTimeout(restaurar, 1500); // fallback caso afterprint não dispare
   }
 
   // ---------- Módulo de acompanhamento (Kanban) ----------
@@ -2176,6 +2197,12 @@ function AppInterno() {
     // não guarda blobs no localStorage — só metadados
     const { cnpjInput, ...serializavel } = next;
     localStorage.setItem("saggregator_empresa", JSON.stringify(serializavel));
+  }
+
+  // marca o onboarding como concluído no servidor e some com o banner
+  function concluirOnboarding() {
+    setPrecisaOnboarding(false);
+    fetch("/api/dados", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ onboardingDone: true }) }).catch(() => { });
   }
 
   // dossiê enviado à IA (sem o campo de digitação)
@@ -2397,6 +2424,16 @@ function AppInterno() {
           />
         )}
 
+        {view === "perfil" && precisaOnboarding && (
+          <div className="onboarding-banner">
+            <div className="onb-icone"><Icon nome="perfil" size={20} /></div>
+            <div className="onb-texto">
+              <b>Bem-vindo{usuario?.name ? `, ${usuario.name.split(" ")[0]}` : ""}! Complete o cadastro da sua empresa.</b>
+              <span>Informe o CNPJ (puxamos os dados da Receita), telefone, certidões e seus interesses (entidades, segmentos e estados). Isso personaliza o score de aderência e as análises de cada edital.</span>
+            </div>
+            <button className="onb-ok" onClick={concluirOnboarding}>Concluir depois</button>
+          </div>
+        )}
         {view === "perfil" && (
           <CadastroEmpresa
             empresa={empresa}
