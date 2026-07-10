@@ -56,12 +56,26 @@ create table if not exists public.processes (
   primary key (org_id, id)
 );
 
+-- Cache de IA por organização (FASE 6b) — economiza tokens:
+--  kind='analise' → relatório executivo já gerado (key = editalId|hashCadastro)
+--  kind='chat'    → histórico do "Pergunte ao Edital" (key = editalId)
+-- Reaproveitado em qualquer dispositivo/navegador da mesma organização.
+create table if not exists public.ia_cache (
+  org_id     uuid references public.organizations(id) on delete cascade,
+  kind       text not null,                            -- 'analise' | 'chat'
+  key        text not null,                            -- editalId (+ variante)
+  data       jsonb not null,                           -- relatório ou lista de mensagens
+  updated_at timestamptz not null default now(),
+  primary key (org_id, kind, key)
+);
+
 -- ---- RLS: liga em tudo; sem policies = deny-all p/ anon/authenticated ----
 alter table public.users                enable row level security;
 alter table public.organizations        enable row level security;
 alter table public.organization_members enable row level security;
 alter table public.company_profile      enable row level security;
 alter table public.processes            enable row level security;
+alter table public.ia_cache             enable row level security;
 
 -- (A service key usada pelo servidor ignora RLS por definição; o navegador
 --  com a chave publishable fica bloqueado de ler/escrever qualquer linha.)

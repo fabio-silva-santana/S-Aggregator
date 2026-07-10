@@ -43,6 +43,30 @@ const CORES_ENTIDADE = {
 };
 function corEntidade(e) { return CORES_ENTIDADE[e] || "#64748b"; }
 
+// Segmentos (classificados em lib/coletores.js) — rótulo curto p/ o gráfico + cor fixa
+const SEG_CURTO = {
+  "TI e Tecnologia": "TI",
+  "Saúde e Segurança do Trabalho": "Saúde/SST",
+  "Educação e Treinamento": "Educação",
+  "Engenharia e Obras": "Engenharia",
+  "Facilities e Conservação": "Facilities",
+  "Alimentação": "Alimentação",
+  "Equipamentos e Mobiliário": "Equipamentos",
+  "Marketing e Eventos": "Marketing",
+  "Outros": "Outros",
+};
+const CORES_SEGMENTO = {
+  "TI e Tecnologia": "#2563eb",
+  "Saúde e Segurança do Trabalho": "#0f766e",
+  "Educação e Treinamento": "#7c3aed",
+  "Engenharia e Obras": "#b45309",
+  "Facilities e Conservação": "#0891b2",
+  "Alimentação": "#be185d",
+  "Equipamentos e Mobiliário": "#4d7c0f",
+  "Marketing e Eventos": "#c2410c",
+  "Outros": "#64748b",
+};
+
 // helpers de arco SVG (donut / pizza)
 function polar(cx, cy, r, ang) { const a = ((ang - 90) * Math.PI) / 180; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
 function arco(cx, cy, r, ini, fim) {
@@ -402,6 +426,9 @@ function RelatorioExecutivo({ analise: a, numero }) {
       <div className="rel-meta">
         <span><b>Processo:</b> {numero}</span>
         <span><b>Gerado em:</b> {a.geradoEm ? new Date(a.geradoEm).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }) : new Date().toLocaleDateString("pt-BR")}</span>
+        {a.objeto_descricao && (
+          <span className="rel-meta-obj"><b>Objeto:</b> {a.objeto_descricao.length > 240 ? a.objeto_descricao.slice(0, 240).trimEnd() + "…" : a.objeto_descricao}</span>
+        )}
       </div>
 
       <div className="score-ring">
@@ -530,6 +557,13 @@ function ChatEdital({ edital, perfil, empresa }) {
   const [erro, setErro] = useState(null);
   const fimRef = useRef(null);
 
+  // carrega o histórico salvo na base (FASE 6b) — mantém a conversa entre sessões
+  useEffect(() => {
+    let vivo = true;
+    lerCacheServidor("chat", edital.id).then((h) => { if (vivo && Array.isArray(h) && h.length) setMsgs(h); });
+    return () => { vivo = false; };
+  }, [edital.id]);
+
   useEffect(() => {
     fimRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [msgs, enviando]);
@@ -551,7 +585,10 @@ function ChatEdital({ edital, perfil, empresa }) {
       });
       const j = await r.json();
       if (!r.ok) throw new Error(j.error || `Erro ${r.status}`);
-      setMsgs([...novas, { autor: "assistente", texto: j.resposta }]);
+      const finais = [...novas, { autor: "assistente", texto: j.resposta }];
+      setMsgs(finais);
+      salvarCacheServidor("chat", edital.id, finais); // guarda o histórico na base
+
     } catch (err) {
       setErro(err.message);
       setMsgs(msgs); // desfaz a pergunta para reenviar
@@ -935,7 +972,7 @@ function GraficoBarras({ dados }) {
     <div className="grafico-barras">
       {dados.map((d) => (
         <div key={d.rotulo} className="gb-linha">
-          <span className="gb-rotulo">{d.rotulo}</span>
+          <span className="gb-rotulo" title={d.titulo || d.rotulo}>{d.rotulo}</span>
           <div className="gb-trilho"><div className="gb-barra" style={{ width: `${(d.valor / max) * 100}%`, background: d.cor }} /></div>
           <span className="gb-valor">{d.rotuloValor ?? d.valor}</span>
         </div>
@@ -1027,7 +1064,14 @@ function PaginaInicial({ base, atualizadaEm, revalidando, interesses, temInteres
 
   // quando um estado é selecionado, os gráficos passam a refletir só aquele estado
   const filtradosGraf = useMemo(() => (ufSel ? filtrados.filter((e) => e.uf === ufSel) : filtrados), [filtrados, ufSel]);
-  const porStatus = ["Aberto", "Em andamento", "Encerrado"].map((s) => ({ rotulo: s, valor: filtradosGraf.filter((e) => e.status === s).length, cor: CORES_STATUS[s] }));
+  // oportunidades ABERTAS por segmento — mostra de bate-olho onde estão as maiores frentes
+  const porSegmentoAberto = useMemo(() => {
+    const m = {};
+    for (const e of filtradosGraf) if (e.status === "Aberto") { const s = e.segmento || "Outros"; m[s] = (m[s] || 0) + 1; }
+    return Object.entries(m)
+      .sort((a, b) => b[1] - a[1])
+      .map(([k, v]) => ({ rotulo: SEG_CURTO[k] || k, titulo: k, valor: v, cor: CORES_SEGMENTO[k] || "#64748b" }));
+  }, [filtradosGraf]);
   const porEntidade = useMemo(() => {
     const m = {};
     for (const e of filtradosGraf) m[e.entidade] = (m[e.entidade] || 0) + 1;
@@ -1164,8 +1208,10 @@ function PaginaInicial({ base, atualizadaEm, revalidando, interesses, temInteres
       {/* Gráficos — refletem o estado selecionado no mapa quando houver */}
       <div className="graficos-grid">
         <div className="grafico-card">
-          <div className="grafico-titulo"><Icon nome="tabela" size={13} /> Processos por status{ufSel ? <span className="grafico-uf">{ufSel}</span> : null}</div>
-          <GraficoBarras dados={porStatus} />
+          <div className="grafico-titulo"><Icon nome="tabela" size={13} /> Oportunidades abertas por segmento{ufSel ? <span className="grafico-uf">{ufSel}</span> : null}</div>
+          {porSegmentoAberto.length
+            ? <GraficoBarras dados={porSegmentoAberto} />
+            : <p className="cad-hint" style={{ margin: "8px 2px" }}>Nenhuma oportunidade aberta neste recorte.</p>}
         </div>
         <div className="grafico-card">
           <div className="grafico-titulo"><Icon nome="kanban" size={13} /> Processos por entidade{ufSel ? <span className="grafico-uf">{ufSel}</span> : null}</div>
@@ -1711,6 +1757,26 @@ function salvarAnaliseCache(chave, analise) {
   } catch { /* quota cheia — segue sem cache */ }
 }
 
+// Cache no servidor (FASE 6b) — reaproveita entre dispositivos e economiza tokens.
+// Silencioso: qualquer falha (offline, tabela ausente) apenas retorna null/false.
+async function lerCacheServidor(kind, key) {
+  try {
+    const r = await fetch(`/api/cache?kind=${kind}&key=${encodeURIComponent(key)}`);
+    if (!r.ok) return null;
+    const j = await r.json();
+    return j.data ?? null;
+  } catch { return null; }
+}
+async function salvarCacheServidor(kind, key, data) {
+  try {
+    await fetch("/api/cache", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ kind, key, data }),
+    });
+  } catch { /* segue sem cache remoto */ }
+}
+
 // Tela de login (FASE 4a) — mostrada quando não há sessão.
 function LoginGate() {
   const [entrando, setEntrando] = useState(false);
@@ -2013,11 +2079,21 @@ function AppInterno() {
     // cache local: mesmo edital + mesmo cadastro → resultado instantâneo, custo zero
     const chaveCache = `${selecionado.id}|${hashCurto(JSON.stringify(dossieEmpresa() || "") + (perfil || ""))}`;
     if (!force) {
+      // 1) cache local (instantâneo)
       const cacheada = lerAnaliseCache(chaveCache);
       if (cacheada) {
         setAnalise(cacheada);
         setAnaliseDoCache(true);
         setErroIA(null);
+        return;
+      }
+      // 2) cache no servidor (mesma org, outro dispositivo) → evita gastar tokens
+      const doServidor = await lerCacheServidor("analise", chaveCache);
+      if (doServidor) {
+        setAnalise(doServidor);
+        setAnaliseDoCache(true);
+        setErroIA(null);
+        salvarAnaliseCache(chaveCache, doServidor); // reidrata o cache local
         return;
       }
     }
@@ -2060,7 +2136,10 @@ function AppInterno() {
             // carimba a data/hora de geração no documento
             const comData = { ...dados.analise, geradoEm: dados.analise.geradoEm || Date.now() };
             setAnalise(comData);
-            if (comData && !comData.demo) salvarAnaliseCache(chaveCache, comData);
+            if (comData && !comData.demo) {
+              salvarAnaliseCache(chaveCache, comData);
+              salvarCacheServidor("analise", chaveCache, comData); // persiste na base p/ reuso sem novos tokens
+            }
           } else if (ev === "erro") {
             throw new Error(dados.mensagem || "Falha na análise");
           }

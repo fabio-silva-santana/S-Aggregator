@@ -300,6 +300,7 @@ tbody tr:hover { background: var(--card-hover); }
 .ia-title { font-size: 11.5px; letter-spacing: 1.3px; color: var(--green-dark); font-weight: 800; }
 .rel-meta { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 11.5px; color: var(--muted-2); margin: 8px 0 4px; }
 .rel-meta b { color: var(--text); font-weight: 700; }
+.rel-meta-obj { flex-basis: 100%; line-height: 1.5; }
 .score-ring { display: flex; align-items: center; gap: 14px; margin: 12px 0; }
 .score-num { font-size: 36px; font-weight: 800; letter-spacing: -1px; }
 .score-bar-track { flex: 1; height: 8px; background: var(--gray-chip); border-radius: 6px; overflow: hidden; }
