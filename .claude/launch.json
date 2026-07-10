@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "s-aggregator-dev",
+      "cwd": "/Users/fabiosilvadesantana/dev/s-aggregator",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "-p", "3041"],
+      "port": 3041
+    }
+  ]
+}
