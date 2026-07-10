@@ -267,7 +267,7 @@ tbody tr:hover { background: var(--card-hover); }
 
 /* ---------- Fases ---------- */
 .fase-box {
-  border: 1px solid #d8e4f8; background: #f5f8fe;
+  border: 1px solid var(--border); background: var(--surface-2);
   border-radius: 12px; padding: 16px; margin-bottom: 20px;
 }
 .fase-box h3 { color: var(--blue); }
@@ -278,7 +278,7 @@ tbody tr:hover { background: var(--card-hover); }
   background: var(--card); border: 1px solid var(--border); color: var(--muted);
 }
 .fase-step.done { background: var(--green-light); border-color: var(--green-line); color: var(--green-dark); font-weight: 600; }
-.fase-step.current { background: var(--blue-light); border-color: #c4d7fb; color: var(--blue); font-weight: 700; }
+.fase-step.current { background: var(--blue-light); border-color: var(--blue); color: var(--blue); font-weight: 700; }
 
 /* ---------- IA ---------- */
 .btn-ia {
@@ -511,7 +511,7 @@ a { color: var(--green-dark); }
   border: 1px solid var(--border); padding: 6px 12px; margin-left: auto;
   color: var(--muted-2); background: var(--card);
 }
-.btn-fav.grande.ativo { color: #a16207; border-color: #f2dfa4; background: #fefaeb; }
+.btn-fav.grande.ativo { color: var(--amber); border-color: var(--amber-light); background: var(--amber-light); }
 .btn-fav.grande.ativo svg { fill: #eab308; stroke: #eab308; }
 
 /* ---------- Filtros salvos ---------- */
@@ -553,7 +553,7 @@ a { color: var(--green-dark); }
   padding: 11px 14px; border-bottom: 1px solid var(--border);
   font-size: 12px; font-weight: 800; letter-spacing: 0.8px;
   color: var(--green-dark); text-transform: uppercase;
-  background: #f7fcf8;
+  background: var(--surface-2);
 }
 .chat-msgs { padding: 14px; max-height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
 .chat-vazio { font-size: 12.5px; color: var(--muted); line-height: 1.7; }
