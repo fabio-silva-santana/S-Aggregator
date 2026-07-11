@@ -69,6 +69,20 @@ create table if not exists public.ia_cache (
   primary key (org_id, kind, key)
 );
 
+-- Saúde dos conectores (FASE 7) — histórico do health-check diário das fontes
+-- (Django, STW, PNCP, Correios). Escrito só pelo cron /api/cron/saude.
+create table if not exists public.api_health (
+  id          bigint generated always as identity primary key,
+  fonte       text not null,                         -- id da fonte (ex.: django-pe)
+  nome        text,                                  -- nome de exibição
+  status      text not null,                         -- ok | degradado | bloqueado | falha
+  http_status int,
+  latencia_ms int,
+  detalhe     text,
+  checked_at  timestamptz not null default now()
+);
+create index if not exists api_health_fonte_data on public.api_health (fonte, checked_at desc);
+
 -- ---- RLS: liga em tudo; sem policies = deny-all p/ anon/authenticated ----
 alter table public.users                enable row level security;
 alter table public.organizations        enable row level security;
@@ -76,6 +90,7 @@ alter table public.organization_members enable row level security;
 alter table public.company_profile      enable row level security;
 alter table public.processes            enable row level security;
 alter table public.ia_cache             enable row level security;
+alter table public.api_health           enable row level security;
 
 -- (A service key usada pelo servidor ignora RLS por definição; o navegador
 --  com a chave publishable fica bloqueado de ler/escrever qualquer linha.)
