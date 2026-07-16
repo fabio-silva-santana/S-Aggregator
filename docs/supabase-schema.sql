@@ -69,6 +69,28 @@ create table if not exists public.ia_cache (
   primary key (org_id, kind, key)
 );
 
+-- Registro de órgãos do Sistema S no PNCP (colheita profunda por CNPJ).
+-- Semeado por lib/orgaosPNCP.js; o cron /api/cron/coleta completa UFs e
+-- acrescenta órgãos descobertos.
+create table if not exists public.orgaos_pncp (
+  cnpj       text primary key,
+  nome       text,
+  entidade   text not null,
+  uf         text,
+  updated_at timestamptz not null default now()
+);
+
+-- Editais colhidos do PNCP (gravados pelo cron; lidos pelo /api/editais).
+create table if not exists public.editais_pncp (
+  id         text primary key,                      -- pncp-<numero_controle>
+  uf         text,
+  entidade   text,
+  status     text,
+  data       jsonb not null,                        -- edital normalizado completo
+  updated_at timestamptz not null default now()
+);
+create index if not exists editais_pncp_uf_ent on public.editais_pncp (uf, entidade);
+
 -- Saúde dos conectores (FASE 7) — histórico do health-check diário das fontes
 -- (Django, STW, PNCP, Correios). Escrito só pelo cron /api/cron/saude.
 create table if not exists public.api_health (
@@ -91,6 +113,8 @@ alter table public.company_profile      enable row level security;
 alter table public.processes            enable row level security;
 alter table public.ia_cache             enable row level security;
 alter table public.api_health           enable row level security;
+alter table public.orgaos_pncp          enable row level security;
+alter table public.editais_pncp         enable row level security;
 
 -- (A service key usada pelo servidor ignora RLS por definição; o navegador
 --  com a chave publishable fica bloqueado de ler/escrever qualquer linha.)
