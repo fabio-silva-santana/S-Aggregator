@@ -38,7 +38,7 @@ const FASES_PIPELINE = [
 // Coordenadas de tela (x,y em 0–100) de cada UF — calibradas p/ silhueta do Brasil
 const CORES_STATUS = { "Aberto": "#1b9e4b", "Em andamento": "#2563eb", "Encerrado": "#94a3b8" };
 const CORES_ENTIDADE = {
-  SESI: "#2563eb", SENAI: "#7c3aed", "SESI e SENAI": "#4f46e5", "Sistema Indústria": "#0891b2",
+  SESI: "#2563eb", SENAI: "#7c3aed", "SESI e SENAI": "#4f46e5", "Sistema Indústria": "#0891b2", "Sistema Comércio": "#9d174d",
   SESC: "#0f766e", SENAC: "#be185d", SENAR: "#4d7c0f", SEBRAE: "#b45309",
   "SEST/SENAT": "#1d4ed8", SESCOOP: "#15803d", Correios: "#c2410c",
 };
