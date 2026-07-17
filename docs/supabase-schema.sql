@@ -91,6 +91,31 @@ create table if not exists public.editais_pncp (
 );
 create index if not exists editais_pncp_uf_ent on public.editais_pncp (uf, entidade);
 
+-- Notificações diárias (módulo de alertas): contato e canais por organização.
+-- O QUE é enviado vem dos interesses já declarados em company_profile.data.interesses.
+create table if not exists public.notificacao_prefs (
+  org_id     uuid primary key references public.organizations(id) on delete cascade,
+  email      text,
+  telefone   text,                                   -- E.164 (ex.: 5581999998888) p/ WhatsApp
+  canal_email    boolean not null default true,
+  canal_whatsapp boolean not null default false,
+  ativo      boolean not null default true,
+  updated_at timestamptz not null default now()
+);
+
+-- Log de envios — garante 1 disparo por org/canal/dia (idempotência do cron)
+create table if not exists public.notificacao_log (
+  id         bigint generated always as identity primary key,
+  org_id     uuid references public.organizations(id) on delete cascade,
+  dia        date not null,
+  canal      text not null,                          -- email | whatsapp
+  status     text not null,                          -- enviado | erro | sem_credencial
+  qtd        int,                                    -- processos no digest
+  detalhe    text,
+  created_at timestamptz not null default now()
+);
+create unique index if not exists notificacao_log_unico on public.notificacao_log (org_id, dia, canal);
+
 -- Saúde dos conectores (FASE 7) — histórico do health-check diário das fontes
 -- (Django, STW, PNCP, Correios). Escrito só pelo cron /api/cron/saude.
 create table if not exists public.api_health (
@@ -115,6 +140,8 @@ alter table public.ia_cache             enable row level security;
 alter table public.api_health           enable row level security;
 alter table public.orgaos_pncp          enable row level security;
 alter table public.editais_pncp         enable row level security;
+alter table public.notificacao_prefs    enable row level security;
+alter table public.notificacao_log      enable row level security;
 
 -- (A service key usada pelo servidor ignora RLS por definição; o navegador
 --  com a chave publishable fica bloqueado de ler/escrever qualquer linha.)

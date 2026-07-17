@@ -1,7 +1,7 @@
 {
   "framework": "nextjs",
   "crons": [
-    { "path": "/api/cron/coleta", "schedule": "30 1 * * *" },
+    { "path": "/api/cron/coleta", "schedule": "0 10 * * *" },
     { "path": "/api/cron/backup", "schedule": "0 3 * * *" }
   ]
 }

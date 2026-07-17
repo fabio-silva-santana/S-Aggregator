@@ -1346,3 +1346,12 @@ a { color: var(--green-dark); }
   .ld-obj { font-size: 10.5px; }
   .ld-fbusca { display: none; }
 }
+
+/* ---- Notificações diárias (Cadastro § 5) ---- */
+.notif-aviso { background: var(--amber-bg, rgba(217, 119, 6, 0.1)); border: 1px solid var(--amber, #d97706); color: var(--text); border-radius: 8px; padding: 10px 12px; font-size: 12.5px; line-height: 1.55; margin: 4px 0 12px; }
+.notif-pend { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted-2); background: var(--gray-chip); border-radius: 999px; padding: 2px 8px; margin-left: 6px; vertical-align: middle; }
+.notif-acoes { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.notif-msg { margin-top: 12px; border-radius: 8px; padding: 10px 12px; font-size: 12.5px; line-height: 1.55; border: 1px solid var(--border); }
+.notif-ok { background: var(--surface-2); border-color: var(--green); color: var(--text); }
+.notif-erro { background: var(--surface-2); border-color: var(--red); color: var(--text); }
+.notif-aviso-msg, .notif-aviso.notif-msg { background: var(--surface-2); }

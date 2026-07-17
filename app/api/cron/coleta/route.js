@@ -1,11 +1,17 @@
-// Cron noturno de coleta (22:30 Recife): colheita profunda do PNCP por CNPJ
-// (todas as entidades do Sistema S nas 27 UFs) + sondas de saúde das fontes.
-// Ocupa 1 dos 2 crons do plano (o outro é o backup) — por isso saúde e
-// colheita compartilham o mesmo job. Protegido por CRON_SECRET.
+// Cron diário matinal (07:00 Recife = 10:00 UTC), em 3 etapas:
+//   1. colheita profunda do PNCP por CNPJ (Sistema S nas 27 UFs)
+//   2. sondas de saúde das fontes → api_health
+//   3. digest diário de oportunidades abertas por e-mail/WhatsApp
+// Roda de manhã de propósito: os assinantes recebem o resumo com os dados
+// recém-colhidos, em horário útil. O plano da Vercel permite 2 crons — este
+// e o backup —, por isso as três etapas compartilham o mesmo job.
+// Protegido por CRON_SECRET.
 import { NextResponse } from "next/server";
 import { supabaseAdmin, supabaseConfigurado } from "@/lib/supabaseServer";
 import { colherPNCP } from "@/lib/harvestPNCP";
 import { sondarTodas } from "@/lib/saudeFontes";
+import { coletarEditais } from "@/lib/coletores";
+import { enviarDigestsDiarios } from "@/lib/digest";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
@@ -52,6 +58,17 @@ export async function GET(request) {
     console.error("[coleta] sondas falharam", err);
   }
 
-  console.log("[coleta] resumo", { colheita: { ok: colheita.ok, orgaosOk: colheita.orgaosOk, editais: colheita.editais }, saude, ms: Date.now() - t0 });
-  return NextResponse.json({ colheita, saude, duracaoMs: Date.now() - t0 });
+  // 3) digest diário — usa a coleta completa (banco + fontes ao vivo)
+  let digest = null;
+  try {
+    const { editais } = await coletarEditais();
+    digest = await enviarDigestsDiarios(editais);
+    if (digest.erros?.length) console.warn("[coleta] erros no digest:", digest.erros.slice(0, 5));
+  } catch (err) {
+    console.error("[coleta] digest falhou", err);
+    digest = { ok: false, erro: err.message };
+  }
+
+  console.log("[coleta] resumo", { colheita: { ok: colheita.ok, orgaosOk: colheita.orgaosOk, editais: colheita.editais }, saude, digest: { orgs: digest?.orgs, enviados: digest?.enviados }, ms: Date.now() - t0 });
+  return NextResponse.json({ colheita, saude, digest, duracaoMs: Date.now() - t0 });
 }

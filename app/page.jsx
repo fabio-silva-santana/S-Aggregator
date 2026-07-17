@@ -5,6 +5,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { formatarCNPJ, limparCNPJ } from "@/lib/empresa";
 import { salvarDoc, removerDoc, baixarDoc } from "@/lib/docStore";
 import { MAPA_UF, MAPA_W, MAPA_H } from "@/lib/mapaBrasil";
+import { editalAderente } from "@/lib/aderencia";
 import Landing from "./landing";
 
 const FILTRO_INICIAL = { entidade: "Todas", uf: "Todos", modalidade: "Todas", segmento: "Todos", status: "Todos", busca: "" };
@@ -101,17 +102,6 @@ function parseBRL(v) {
 // valor de referência do processo: proposta do usuário, senão valor de referência do edital
 function valorProcesso(p) { return parseBRL(p.valorProposta) || parseBRL(p.valorReferencia) || 0; }
 const RESULTADO_DECIDE = new Set(["Vencido / Contratado", "Não vencido", "Desclassificado"]);
-
-// aderência de um edital aos interesses declarados no cadastro
-function editalAderente(e, interesses) {
-  if (!interesses) return false;
-  const ent = interesses.entidades || [], seg = interesses.segmentos || [], ufs = interesses.ufs || [];
-  if (!ent.length && !seg.length && !ufs.length) return false;
-  if (ent.length && !ent.some((x) => (e.entidade || "").includes(x))) return false;
-  if (seg.length && !seg.includes(e.segmento)) return false;
-  if (ufs.length && !ufs.includes(e.uf)) return false;
-  return true;
-}
 
 // Checklist padrão de habilitação no Sistema S — base para cada processo
 const CHECKLIST_PADRAO = [
@@ -658,6 +648,119 @@ function statusCertidaoClasse(c) {
   return "cert-neutra";
 }
 
+/* ---------- Notificações diárias (e-mail + WhatsApp) ---------- */
+function BlocoNotificacoes({ temInteresses }) {
+  const [prefs, setPrefs] = useState(null);
+  const [cred, setCred] = useState({ email: false, whatsapp: false });
+  const [carregando, setCarregando] = useState(true);
+  const [salvando, setSalvando] = useState(false);
+  const [msg, setMsg] = useState(null);
+  const [testando, setTestando] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/notificacoes")
+      .then((r) => r.json())
+      .then((j) => {
+        setPrefs(j.prefs || { email: "", telefone: "", canal_email: true, canal_whatsapp: false, ativo: true });
+        if (j.credenciais) setCred(j.credenciais);
+      })
+      .catch(() => setPrefs({ email: "", telefone: "", canal_email: true, canal_whatsapp: false, ativo: true }))
+      .finally(() => setCarregando(false));
+  }, []);
+
+  const campo = (k, v) => setPrefs((p) => ({ ...p, [k]: v }));
+
+  async function salvar() {
+    setSalvando(true); setMsg(null);
+    try {
+      const r = await fetch("/api/notificacoes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: prefs.email, telefone: prefs.telefone,
+          canalEmail: prefs.canal_email, canalWhatsapp: prefs.canal_whatsapp, ativo: prefs.ativo,
+        }),
+      });
+      const j = await r.json();
+      setMsg(j.semTabela ? { t: "erro", x: "Banco ainda não tem a tabela de notificações." } : j.ok ? { t: "ok", x: "Preferências salvas." } : { t: "erro", x: j.error || "Falha ao salvar." });
+    } catch (e) { setMsg({ t: "erro", x: e.message }); }
+    finally { setSalvando(false); }
+  }
+
+  async function testar() {
+    setTestando(true); setMsg(null);
+    try {
+      const r = await fetch("/api/notificacoes?teste=1", { method: "POST" });
+      const j = await r.json();
+      if (j.vazio) setMsg({ t: "aviso", x: j.mensagem });
+      else if (j.ok) {
+        const partes = Object.entries(j.resultados || {}).map(([c, v]) => `${c}: ${v.ok ? "enviado" : v.motivo === "sem_credencial" ? "aguardando credencial" : v.motivo}`);
+        setMsg({ t: "ok", x: `${j.qtd} processo(s) no resumo. ${partes.join(" · ")}` });
+      } else setMsg({ t: "erro", x: j.error || "Falha no teste." });
+    } catch (e) { setMsg({ t: "erro", x: e.message }); }
+    finally { setTestando(false); }
+  }
+
+  if (carregando) return (
+    <div className="cad-card">
+      <div className="cad-titulo"><Icon nome="bolt" size={14} /> 5. Notificações diárias</div>
+      <p className="cad-hint">Carregando…</p>
+    </div>
+  );
+
+  return (
+    <div className="cad-card">
+      <div className="cad-titulo"><Icon nome="bolt" size={14} /> 5. Notificações diárias</div>
+      <p className="cad-hint">
+        Todo dia de manhã enviamos as oportunidades <b>abertas</b> que batem com os seus interesses da seção 4.
+        Um processo continua no resumo enquanto estiver aberto, junto com os que abriram depois.
+      </p>
+
+      {!temInteresses && (
+        <div className="notif-aviso">
+          ⚠️ Marque ao menos uma entidade, segmento ou estado na <b>seção 4 (Interesses de participação)</b> — sem isso não há o que enviar.
+        </div>
+      )}
+
+      <div className="cad-grid">
+        <label className="cad-campo">
+          <span>E-mail para receber o resumo</span>
+          <input type="email" placeholder="voce@empresa.com.br" value={prefs.email || ""} onChange={(e) => campo("email", e.target.value)} />
+        </label>
+        <label className="cad-campo">
+          <span>WhatsApp (com DDD)</span>
+          <input type="tel" placeholder="(81) 99999-8888" value={prefs.telefone || ""} onChange={(e) => campo("telefone", e.target.value)} />
+        </label>
+      </div>
+
+      <div className="cad-checks">
+        <label className="cad-check">
+          <input type="checkbox" checked={Boolean(prefs.canal_email)} onChange={(e) => campo("canal_email", e.target.checked)} />
+          Receber por e-mail {!cred.email && <span className="notif-pend">aguardando credencial do provedor</span>}
+        </label>
+        <label className="cad-check">
+          <input type="checkbox" checked={Boolean(prefs.canal_whatsapp)} onChange={(e) => campo("canal_whatsapp", e.target.checked)} />
+          Receber no WhatsApp {!cred.whatsapp && <span className="notif-pend">aguardando credencial do provedor</span>}
+        </label>
+        <label className="cad-check">
+          <input type="checkbox" checked={prefs.ativo !== false} onChange={(e) => campo("ativo", e.target.checked)} />
+          Alertas ativos
+        </label>
+      </div>
+
+      <div className="notif-acoes">
+        <button className="btn-ia" disabled={salvando} onClick={salvar}>
+          {salvando ? <span className="spinner" /> : <><Icon nome="salvar" size={14} /> Salvar notificações</>}
+        </button>
+        <button className="btn-secundario" disabled={testando} onClick={testar}>
+          {testando ? <span className="spinner" /> : "Enviar teste agora"}
+        </button>
+      </div>
+      {msg && <div className={`notif-msg notif-${msg.t}`}>{msg.x}</div>}
+    </div>
+  );
+}
+
 function CadastroEmpresa({
   empresa, consultando, erroCnpj, salva,
   onCnpjInput, onConsultar, onCertidao, onQuestionario, onInteresse,
@@ -854,10 +957,13 @@ function CadastroEmpresa({
         </div>
       </div>
 
-      {/* 5. Atestados de capacidade técnica */}
+      {/* 5. Notificações diárias */}
+      <BlocoNotificacoes temInteresses={Boolean(inter.entidades.length || inter.segmentos.length || inter.ufs.length)} />
+
+      {/* 6. Atestados de capacidade técnica */}
       <div className="cad-card">
         <div className="cad-titulo">
-          <Icon nome="doc" size={14} />XX__ATEST
+          <Icon nome="doc" size={14} /> 6. Atestados de capacidade técnica
           <button className="btn-secundario cad-add" onClick={onAddAtestado}>+ Adicionar atestado</button>
         </div>
         {empresa.atestados.length === 0 && <p className="cad-hint">Cadastre os contratos que comprovam sua experiência — a IA usa para verificar se você atende à qualificação técnica exigida no edital.</p>}
@@ -875,7 +981,7 @@ function CadastroEmpresa({
       {/* 6. Documentos anexados */}
       <div className="cad-card">
         <div className="cad-titulo">
-          <Icon nome="doc" size={14} /> 6. Documentos (contrato social, atestados, outros)
+          <Icon nome="doc" size={14} /> 7. Documentos (contrato social, atestados, outros)
           <label className="btn-secundario cad-add">
             + Anexar documento
             <input type="file" accept="application/pdf,image/*" style={{ display: "none" }} onChange={(e) => onAnexar("documento", e.target.files?.[0])} />
@@ -897,7 +1003,7 @@ function CadastroEmpresa({
 
       {/* 7. Observações livres */}
       <div className="cad-card">
-        <div className="cad-titulo"><Icon nome="chat" size={14} /> 7. Informações adicionais</div>
+        <div className="cad-titulo"><Icon nome="chat" size={14} /> 8. Informações adicionais</div>
         <textarea placeholder="Diferenciais, certificações (ISO), restrições de atuação, ou qualquer contexto que ajude a IA a avaliar aderência." value={empresa.textoLivre} onChange={(e) => onTextoLivre(e.target.value)} style={{ minHeight: 90 }} />
       </div>
 
